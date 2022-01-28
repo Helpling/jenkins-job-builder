@@ -14,6 +14,7 @@ publishers:
           - branch:
               remote: branchremotename
               name: "some/branch"
+              rebase: true
       notes:
           - note:
               remote: remotename
