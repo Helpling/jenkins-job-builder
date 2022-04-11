@@ -88,7 +88,7 @@ tests samples are included as examples in our documentation to ensure that
 examples are kept current with existing behaviour. To run the unit tests,
 execute the command::
 
-    tox -e py34,py27
+    tox -e py38
 
 * Note: View ``tox.ini`` to run tests on other versions of Python,
   generating the documentation and additionally for any special notes
