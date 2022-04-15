@@ -1638,6 +1638,9 @@ def gitlab(registry, xml_parent, data):
             * **never** (default)
             * **source**
             * **both**
+    :arg bool trigger-only-if-new-commits-pushed: Trigger a build on commits pushed
+        only, but not trigger on another MR changes(label, edit, assign, etc)
+        (>=1.5.17)(default false)
     :arg bool trigger-note: Build when comment is added with defined phrase
         (>= 1.2.4) (default true)
     :arg str note-regex: Phrase that triggers the build (>= 1.2.4) (default
@@ -1755,6 +1758,7 @@ def gitlab(registry, xml_parent, data):
     mapping = [
         ("trigger-push", "triggerOnPush", True),
         ("trigger-merge-request", "triggerOnMergeRequest", True),
+        ("trigger-only-if-new-commits-pushed", "triggerOnlyIfNewCommitsPushed", False),
         ("trigger-accepted-merge-request", "triggerOnAcceptedMergeRequest", False),
         ("trigger-closed-merge-request", "triggerOnClosedMergeRequest", False),
         ("trigger-note", "triggerOnNoteRequest", True),

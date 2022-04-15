@@ -2,6 +2,7 @@ triggers:
   - gitlab:
       trigger-push: false
       trigger-merge-request: false
+      trigger-only-if-new-commits-pushed: false
       trigger-open-merge-request-push: both
       ci-skip: false
       set-build-description: false

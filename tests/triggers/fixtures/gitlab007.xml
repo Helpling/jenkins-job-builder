@@ -7,6 +7,7 @@
       <spec/>
       <triggerOnPush>true</triggerOnPush>
       <triggerOnMergeRequest>true</triggerOnMergeRequest>
+      <triggerOnlyIfNewCommitsPushed>true</triggerOnlyIfNewCommitsPushed>
       <triggerOnAcceptedMergeRequest>true</triggerOnAcceptedMergeRequest>
       <triggerOnClosedMergeRequest>true</triggerOnClosedMergeRequest>
       <triggerOnNoteRequest>true</triggerOnNoteRequest>
