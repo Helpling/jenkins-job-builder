@@ -230,7 +230,7 @@ between those instances (global). Furthermore, there may be various ways you
 would like to structure jobs within a given instance.
 
 Recursive Searching of Paths
-----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In addition to passing multiple paths to JJB it is also possible to enable
 recursive searching to process all yaml files in the tree beneath each path.
@@ -252,7 +252,7 @@ JJB will search defs/ci_jobs, defs/release_jobs, globals/macros and
 globals/templates in addition to the defs and globals trees.
 
 Excluding Paths
----------------
+^^^^^^^^^^^^^^^
 
 To allow a complex tree of jobs where some jobs are managed differently without
 needing to explicitly provide each path, the recursive path processing supports
