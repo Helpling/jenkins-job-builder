@@ -3,7 +3,7 @@ Installation
 
 To install Jenkins Job Builder from source, run::
 
-  pip install --user jenkins-job-builder
+  pip install git+https://opendev.org/jjb/jenkins-job-builder/
 
 A virtual environment is recommended for development.  For example, Jenkins
 Job Builder may be installed from the top level directory::
