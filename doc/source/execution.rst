@@ -365,6 +365,7 @@ Command Reference
 .. program-output:: jenkins-jobs update --help
 .. program-output:: jenkins-jobs delete-all --help
 .. program-output:: jenkins-jobs delete --help
+.. program-output:: jenkins-jobs list --help
 .. program-output:: jenkins-jobs get-plugins-info --help
 
 .. rubric:: Footnotes
