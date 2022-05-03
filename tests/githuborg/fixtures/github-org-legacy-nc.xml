@@ -63,7 +63,7 @@
         </net.gleske.scmfilter.impl.trait.WildcardSCMOriginFilterTrait>
         <org.jenkinsci.plugins.githubScmTraitNotificationContext.NotificationContextTrait>
           <contextLabel>jenkins.example.com/my_context</contextLabel>
-          <typeSuffix>false</typeSuffix>
+          <typeSuffix>true</typeSuffix>
         </org.jenkinsci.plugins.githubScmTraitNotificationContext.NotificationContextTrait>
         <jenkins.plugins.git.traits.CleanAfterCheckoutTrait>
           <extension class="hudson.plugins.git.extensions.impl.CleanCheckout"/>

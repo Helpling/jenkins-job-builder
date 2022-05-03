@@ -1,12 +1,9 @@
-name: scm-github-full
-project-type: multibranch
-script-path: some.Jenkinsfile
-scm:
-    - github:
+name: github-org-legacy-nc
+project-type: githuborg
+github-org:
         api-uri: http://example.org/github
         ssh-checkout:
             credentials: 'ssh_secret'
-        repo: example-repo
         repo-owner: example-owner
         credentials-id: example-credential
         branch-discovery: all
@@ -32,9 +29,7 @@ scm:
         discover-pr-forks-trust: everyone
         discover-pr-origin: both
         discover-tags: true
-        notification-context:
-            label: 'jenkins.example.com/my_context'
-            suffix: false
+        notification-context: 'jenkins.example.com/my_context'
         property-strategies:
             all-branches:
                 - suppress-scm-triggering: true
