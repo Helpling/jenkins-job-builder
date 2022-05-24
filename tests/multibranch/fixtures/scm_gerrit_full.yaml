@@ -46,6 +46,7 @@ scm:
                 - exact-name: {}
                 - regex-name: {}
                 - wildcards-name: {}
+        head-filter-regex: "(.*/master|.*/release/.*)"
         clean:
             after: true
             before: true

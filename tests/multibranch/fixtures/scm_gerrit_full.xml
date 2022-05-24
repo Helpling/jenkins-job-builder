@@ -47,6 +47,9 @@
                 </jenkins.plugins.git.traits.RefSpecsSCMSourceTrait_-RefSpecTemplate>
               </templates>
             </jenkins.plugins.git.traits.RefSpecsSCMSourceTrait>
+            <jenkins.scm.impl.trait.RegexSCMHeadFilterTrait>
+              <regex>(.*/master|.*/release/.*)</regex>
+            </jenkins.scm.impl.trait.RegexSCMHeadFilterTrait>
             <jenkins.plugins.gerrit.traits.FilterChecksTrait>
               <queryOperator>SCHEME</queryOperator>
               <queryString>jenkins</queryString>
