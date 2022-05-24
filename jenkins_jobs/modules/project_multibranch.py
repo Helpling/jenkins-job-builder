@@ -58,6 +58,8 @@ Plugins required:
       (default '-1, all')
     * **days-to-keep** (`int`): For how many days should a build be kept.
       (default '-1, forever')
+    * **abort-builds** (`bool`): Abort all pending or ongoing builds for removed
+      SCM heads (i.e. deleted branches). (default false)
     * **script-path** (`str`): Path to Jenkinsfile, relative to workspace.
       (default 'Jenkinsfile')
     * **script-id** (`str`): Script id from the global Jenkins script store
@@ -220,6 +222,7 @@ class WorkflowMultiBranch(jenkins_jobs.modules.base.Base):
             ("prune-dead-branches", "pruneDeadBranches", True, [True, False]),
             ("days-to-keep", "daysToKeep", -1),
             ("number-to-keep", "numToKeep", -1),
+            ("abort-builds", "abortBuilds", False, [True, False]),
         ]
         helpers.convert_mapping_to_xml(ois, data, ois_mapping)
 
