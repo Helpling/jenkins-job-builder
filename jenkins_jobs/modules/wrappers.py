@@ -2207,11 +2207,11 @@ def credentials_binding(registry, xml_parent, data):
                     binding_xml, params, mapping, fail_required=True
                 )
             elif binding_type == "ssh-user-private-key":
-                mapping = [
-                    ("key-file-variable", "keyFileVariable", None),
-                    ("username-variable", "usernameVariable", ""),
-                    ("passphrase-variable", "passphraseVariable", ""),
-                ]
+                mapping = [("key-file-variable", "keyFileVariable", None)]
+                if "username-variable" in params:
+                    mapping.append(("username-variable", "usernameVariable", None))
+                if "passphrase-variable" in params:
+                    mapping.append(("passphrase-variable", "passphraseVariable", None))
                 helpers.convert_mapping_to_xml(
                     binding_xml, params, mapping, fail_required=True
                 )
