@@ -2147,7 +2147,7 @@ def credentials_binding(registry, xml_parent, data):
     Example:
 
     .. literalinclude::
-            /../../tests/wrappers/fixtures/credentials_binding.yaml
+            /../../tests/wrappers/fixtures/credentials-binding-full.yaml
             :language: yaml
 
     """
