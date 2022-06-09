@@ -32,8 +32,8 @@ class ListFromJenkinsTests(TestWithScenarios, CmdTestsBase):
             dict(
                 jobs=["folder1", "folder1/job1", "folder1/job2"],
                 globs=[],
-                found=["folder1", "folder1/job1", "folder1/job2"]
-            )
+                found=["folder1", "folder1/job1", "folder1/job2"],
+            ),
         ),
         (
             "multiple_with_glob",

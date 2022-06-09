@@ -1851,6 +1851,7 @@ def add_filter_by_name_wildcard_behaviors(traits, data):
             fail_required=True,
         )
 
+
 def add_notification_context_trait(traits, data):
     """Change the default GitHub check notification context from
     "continuous-integration/jenkins/SUFFIX" to a custom label / suffix.
