@@ -16,10 +16,12 @@ class JenkinsJobsException(Exception):
 class ModuleError(JenkinsJobsException):
     def get_module_name(self):
         frame = inspect.currentframe()
-        co_name = frame.f_code.co_name
         module_name = "<unresolved>"
-        while frame and co_name != "run":
+        while frame:
             # XML generation called via dispatch
+            co_name = frame.f_code.co_name
+            if co_name == "run":
+                break
             if co_name == "dispatch":
                 data = frame.f_locals
                 module_name = "%s.%s" % (data["component_type"], data["name"])
@@ -30,7 +32,6 @@ class ModuleError(JenkinsJobsException):
                 module_name = next(iter(data.keys()))
                 break
             frame = frame.f_back
-            co_name = frame.f_code.co_name
 
         return module_name
 
