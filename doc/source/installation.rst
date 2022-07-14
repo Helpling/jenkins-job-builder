@@ -50,7 +50,7 @@ started including unit tests as examples in our documentation so to keep the
 examples up to date it is very important that we include unit tests for
 every module.  To run the unit tests, execute the command::
 
-    tox -e py27
+    tox -e py38
 
 * Note: View ``tox.ini`` to run tests on other versions of Python.
 
