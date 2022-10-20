@@ -4,6 +4,7 @@
     <javaposse.jobdsl.plugin.ExecuteDslScripts>
       <scriptText>job { name 'dsljob' }</scriptText>
       <usingScriptText>true</usingScriptText>
+      <sandbox>true</sandbox>
       <ignoreExisting>true</ignoreExisting>
       <removedJobAction>DISABLE</removedJobAction>
       <removedViewAction>DELETE</removedViewAction>

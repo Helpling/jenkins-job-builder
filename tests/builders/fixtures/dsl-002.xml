@@ -4,6 +4,7 @@
     <javaposse.jobdsl.plugin.ExecuteDslScripts>
       <targets>jobs/*/*/*.groovy</targets>
       <usingScriptText>false</usingScriptText>
+      <sandbox>false</sandbox>
       <ignoreExisting>true</ignoreExisting>
       <removedJobAction>IGNORE</removedJobAction>
       <removedViewAction>IGNORE</removedViewAction>

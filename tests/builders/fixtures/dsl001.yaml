@@ -6,3 +6,4 @@ builders:
       removed-view-action: "DELETE"
       lookup-strategy: "SEED_JOB"
       additional-classpath: "*.jar"
+      sandbox: "true"
