@@ -8384,6 +8384,59 @@ def discord_notifier(registry, xml_parent, data):
         value = "true" if data.get(opt, False) else "false"
         (XML.SubElement(notifier, attr).text) = value
 
+def webhook(registry, xml_parent, data):
+    """yaml: webhook
+    Publisher that calls external webhooks on job events.
+
+    Requires the Jenkins :jenkins-plugins:`Outbound Webhook Plugin <outbound-webhook>`
+
+    :arg str url: Webhook url
+    :arg bool notify-start: Trigger when the job starts.
+        (default false)
+    :arg bool notify-success: Trigger on success.
+        (default false)
+    :arg bool notify-failure: Trigger when job fails for the first
+        time (previous build was a success) .  (default false)
+    :arg bool notify-unstable: Trigger when job becomes unstable. (default false)
+    """
+
+    def _add_xml(elem, name, value=""):
+        if isinstance(value, bool):
+            value = str(value).lower()
+        XML.SubElement(elem, name).text = value
+
+    logger = logging.getLogger(__name__)
+
+    plugin_info = registry.get_plugin_info("Outbound WebHook for build events")
+    # Note: Assume latest version of plugin is preferred config format
+    plugin_ver = pkg_resources.parse_version(
+        plugin_info.get("version", str(sys.maxsize))
+    )
+
+    mapping = (
+        ("url", "webHookUrl", ""),
+        ("notify-start", "onStart", False),
+        ("notify-success", "onSuccess", False),
+        ("notify-failure", "onFailure", False),
+        ("notify-unstable", "onUnstable", False),
+    )
+
+    webhook = XML.SubElement(xml_parent, "org.jenkins.plugins.WebHookPublisher")
+
+    for yaml_name, xml_name, default_value in mapping:
+        value = data.get(yaml_name, default_value)
+
+        # Ensure that custom-message is set when include-custom-message is set
+        # to true.
+        if (
+            yaml_name == "include-custom-message"
+            and data is False
+            and not data.get("custom-message", "")
+        ):
+            raise MissingAttributeError("custom-message")
+
+        _add_xml(webhook, xml_name, value)
+
 
 class Publishers(jenkins_jobs.modules.base.Base):
     sequence = 70
