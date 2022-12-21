@@ -100,6 +100,9 @@ def project(input, registry):
 
 @pytest.fixture
 def expected_output(scenario):
+    if not scenario.out_paths:
+        # Do not check output if there are no files for it.
+        return None
     return "".join(path.read_text() for path in sorted(scenario.out_paths))
 
 
@@ -161,6 +164,8 @@ def check_job(scenario, expected_output, jjb_config, registry):
             .strip()
             .replace("\n\n", "\n")
         )
+        if expected_output is None:
+            return
         stripped_expected_output = (
             expected_output.strip().replace("<BLANKLINE>", "").replace("\n\n", "\n")
         )
@@ -186,6 +191,8 @@ def check_view(scenario, expected_output, jjb_config, registry):
             .strip()
             .replace("\n\n", "\n")
         )
+        if expected_output is None:
+            return
         stripped_expected_output = (
             expected_output.strip().replace("<BLANKLINE>", "").replace("\n\n", "\n")
         )
