@@ -1065,7 +1065,7 @@ def github_scm(xml_parent, data):
         },
     )
     mapping = [
-        ("", "id", "-".join(["gh", data.get("repo-owner", ""), data.get("repo", "")])),
+        ("id", "id", "-".join(["gh", data.get("repo-owner", ""), data.get("repo", "")])),
         ("repo-owner", "repoOwner", None),
         ("repo", "repository", None),
     ]
