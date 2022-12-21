@@ -2294,6 +2294,23 @@ def nodejs_installator(registry, xml_parent, data):
     helpers.convert_mapping_to_xml(npm_node, data, mapping, fail_required=True)
 
 
+def vnc_viewer(registry, xml_parent, data):
+    """yaml: vnc-viewer
+    Enable VNC Viewer during the build.
+
+    Requires the Jenkins :jenkins-plugins:`VncViewer plugin <vncviewer>`.
+
+    :arg bool vnc-server: VNC Server address and port (default localhost:5900)
+    """
+    xwrapper = XML.SubElement(xml_parent, "org.jenkinsci.plugins.vncviewer.VncViewerBuildWrapper")
+    xwrapper.set("plugin", "vncviewer")
+
+    mapping = [
+        ("vnc-server", "vncServ", "localhost:5900"),
+    ]
+    helpers.convert_mapping_to_xml(xwrapper, data, mapping, fail_required=True)
+
+
 def xvnc(registry, xml_parent, data):
     """yaml: xvnc
     Enable xvnc during the build.
