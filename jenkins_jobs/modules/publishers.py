@@ -144,6 +144,8 @@ def archive(registry, xml_parent, data):
         successful build
     :arg bool allow-empty:  pass the build if no artifacts are
         found (default false)
+    :arg bool follow-symlinks: follow symbolic links during archiving
+        (default false)
     :arg bool only-if-success: archive artifacts only if build is successful
         (default false)
     :arg bool fingerprint: fingerprint all archived artifacts (default false)
@@ -166,6 +168,7 @@ def archive(registry, xml_parent, data):
         ("default-excludes", "defaultExcludes", True),
         ("case-sensitive", "caseSensitive", True),
         ("latest-only", "latestOnly", False),
+        ("follow-symlinks", "followSymlinks", False),
     ]
 
     if "excludes" in data:

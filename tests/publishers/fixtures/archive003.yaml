@@ -5,3 +5,4 @@ publishers:
       only-if-success: 'false'
       fingerprint: true
       case-sensitive: false
+      follow-symlinks: true

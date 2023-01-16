@@ -17,6 +17,7 @@
             <defaultExcludes>true</defaultExcludes>
             <caseSensitive>true</caseSensitive>
             <latestOnly>false</latestOnly>
+            <followSymlinks>false</followSymlinks>
           </publisher>
         </org.jenkins__ci.plugins.flexible__publish.ConditionalPublisher>
       </publishers>

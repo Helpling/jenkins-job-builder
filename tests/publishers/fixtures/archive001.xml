@@ -9,6 +9,7 @@
       <defaultExcludes>false</defaultExcludes>
       <caseSensitive>true</caseSensitive>
       <latestOnly>false</latestOnly>
+      <followSymlinks>false</followSymlinks>
     </hudson.tasks.ArtifactArchiver>
   </publishers>
 </project>

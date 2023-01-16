@@ -16,6 +16,7 @@
               <defaultExcludes>true</defaultExcludes>
               <caseSensitive>true</caseSensitive>
               <latestOnly>false</latestOnly>
+              <followSymlinks>false</followSymlinks>
             </hudson.tasks.ArtifactArchiver>
           </publisherList>
         </org.jenkins__ci.plugins.flexible__publish.ConditionalPublisher>

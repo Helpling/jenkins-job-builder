@@ -15,6 +15,7 @@
               <defaultExcludes>true</defaultExcludes>
               <caseSensitive>true</caseSensitive>
               <latestOnly>false</latestOnly>
+              <followSymlinks>false</followSymlinks>
             </hudson.tasks.ArtifactArchiver>
             <hudson.tasks.test.AggregatedTestResultPublisher>
               <includeFailedBuilds>true</includeFailedBuilds>
