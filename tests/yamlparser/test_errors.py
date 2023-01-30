@@ -21,7 +21,7 @@ from pathlib import Path
 import pytest
 
 
-exceptions_dir = Path(__file__).parent / "exceptions"
+fixtures_dir = Path(__file__).parent / "error_fixtures"
 
 
 # Override to avoid scenarios usage.
@@ -37,7 +37,7 @@ def plugins_info():
 
 
 def test_incorrect_template_dimensions(caplog, check_parser):
-    in_path = exceptions_dir / "incorrect_template_dimensions.yaml"
+    in_path = fixtures_dir / "incorrect_template_dimensions.yaml"
     with pytest.raises(Exception) as excinfo:
         check_parser(in_path)
     assert "'NoneType' object is not iterable" in str(excinfo.value)
@@ -46,7 +46,7 @@ def test_incorrect_template_dimensions(caplog, check_parser):
 
 @pytest.mark.parametrize("name", ["template", "params"])
 def test_failure_formatting(caplog, check_parser, name):
-    in_path = exceptions_dir / f"failure_formatting_{name}.yaml"
+    in_path = fixtures_dir / f"failure_formatting_{name}.yaml"
     with pytest.raises(Exception):
         check_parser(in_path)
     assert f"Failure formatting {name}" in caplog.text
