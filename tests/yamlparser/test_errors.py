@@ -16,12 +16,31 @@
 # under the License.
 
 import os
+from operator import attrgetter
 from pathlib import Path
 
 import pytest
 
+from tests.enum_scenarios import scenario_list
 
 fixtures_dir = Path(__file__).parent / "error_fixtures"
+
+
+@pytest.fixture(
+    params=[
+        s
+        for s in scenario_list(fixtures_dir)
+        if s.in_path.name
+        not in {
+            "incorrect_template_dimensions.yaml",
+            "failure_formatting_template.yaml",
+            "failure_formatting_params.yaml",
+        }
+    ],
+    ids=attrgetter("name"),
+)
+def scenario(request):
+    return request.param
 
 
 # Override to avoid scenarios usage.
@@ -51,3 +70,9 @@ def test_failure_formatting(caplog, check_parser, name):
         check_parser(in_path)
     assert f"Failure formatting {name}" in caplog.text
     assert "Problem formatting with args" in caplog.text
+
+
+def test_error(check_parser, scenario, expected_error):
+    with pytest.raises(Exception) as excinfo:
+        check_parser(scenario.in_path)
+    assert str(excinfo.value) == expected_error
