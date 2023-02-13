@@ -1,0 +1,14 @@
+# Check including a list of files, with variable expansion.
+
+- job-template:
+    name: sample-job
+    var: 12345
+    builders:
+      - shell: !include:
+          - include002-list.yaml.shell-1
+          - include002-list.yaml.shell-2
+
+- project:
+    name: sample-project
+    jobs:
+      - sample-job

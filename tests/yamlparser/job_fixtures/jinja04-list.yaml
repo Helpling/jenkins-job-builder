@@ -1,0 +1,12 @@
+# Check jinja-including a list of files.
+
+- job-template:
+    name: sample-job
+    builders:
+      - shell: !include-jinja2:
+          - jinja03.yaml.inc
+
+- project:
+    name: sample-project
+    jobs:
+      - sample-job
