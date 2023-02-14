@@ -1,0 +1,17 @@
+# Template should take from defaults no just parameters, but other elements also.
+
+- defaults:
+    name: global
+    concurrent: true
+    wrappers:
+      - timestamps
+
+- job-template:
+    name: sample-job
+    builders:
+      - shell: echo hi
+
+- project:
+    name: sample-project
+    jobs:
+      - sample-job

@@ -1,0 +1,12 @@
+# Job should take elements defined by defaults.
+
+- defaults:
+    name: global
+    concurrent: true
+    wrappers:
+      - timestamps
+
+- job:
+    name: sample-job
+    builders:
+      - shell: echo hi
