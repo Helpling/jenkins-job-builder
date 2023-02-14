@@ -1,0 +1,18 @@
+# Global defaults are not used, not merged to custom ones if used from a job.
+
+- defaults:
+    name: global
+    description: 'Global description'
+    concurrent: true
+    wrappers:
+      - timestamps
+
+- defaults:
+    name: custom-defaults
+    description: 'Custom description'
+
+- job:
+    name: sample-job
+    defaults: custom-defaults
+    builders:
+      - shell: echo hi
