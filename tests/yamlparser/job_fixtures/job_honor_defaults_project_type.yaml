@@ -1,0 +1,11 @@
+# Project type defined at defaults should be honored.
+
+- defaults:
+    name: custom
+    project-type: pipeline
+
+- job:
+    name: sample-job
+    defaults: custom
+    dsl: |
+      build job: "job1"
