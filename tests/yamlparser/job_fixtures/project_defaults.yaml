@@ -1,0 +1,17 @@
+# Defaults defined at project should be honored.
+
+- defaults:
+    name: custom-defaults
+    var: var-value
+
+- job-template:
+    name: sample-job
+    builders:
+      - shell: |
+          echo var={var}
+
+- project:
+    name: sample-project
+    defaults: custom-defaults
+    jobs:
+      - sample-job
