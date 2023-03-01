@@ -1,5 +1,4 @@
 - job-template:
-    disabled: false
     name: 'bar001'
     description: 'My first job'
 
