@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+  <publishers>
+    <nz.co.jammehcow.jenkinsdiscord.WebhookPublisher plugin="discord-notifier@1.4.14">
+      <webhookURL>https://discord.com/api/webhooks/token</webhookURL>
+      <branchName/>
+      <statusTitle/>
+      <thumbnailURL/>
+      <notes/>
+      <customAvatarUrl/>
+      <customUsername/>
+      <sendOnStateChange>false</sendOnStateChange>
+      <enableUrlLinking>false</enableUrlLinking>
+      <enableArtifactList>false</enableArtifactList>
+      <enableFooterInfo>false</enableFooterInfo>
+      <showChangeset>false</showChangeset>
+      <sendLogFile>false</sendLogFile>
+      <sendStartNotification>false</sendStartNotification>
+    </nz.co.jammehcow.jenkinsdiscord.WebhookPublisher>
+  </publishers>
+</project>

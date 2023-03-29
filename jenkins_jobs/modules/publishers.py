@@ -8332,6 +8332,63 @@ def packer(registry, xml_parent, data):
                 )
 
 
+def discord_notifier(registry, xml_parent, data):
+    """yaml: discord-notifier
+    This plugin allows for a job to publish results to discord
+    Requires the Jenkins :jenkins-plugins:`discord-notifier`.
+
+    :arg str webhook-url: Discord webhook URL ( required )
+
+    Minimal Example:
+
+    .. literalinclude::
+        /../../tests/publishers/fixtures/discord-notifier-minimal.yaml
+       :language: yaml
+
+    Full Example:
+
+    .. literalinclude::
+        /../../tests/publishers/fixtures/discord-notifier-full.yaml
+        :language: yaml
+
+    """
+
+    boolean_options = {
+        "send-on-state-change": "sendOnStateChange",
+        "enable-url-linking": "enableUrlLinking",
+        "enable-artifact-list": "enableArtifactList",
+        "enable-footer-info": "enableFooterInfo",
+        "show-changeset": "showChangeset",
+        "send-log-file": "sendLogFile",
+        "send-start-notification": "sendStartNotification",
+    }
+
+    text_options = {
+        "webhook-url": "webhookURL",
+        "branch-name": "branchName",
+        "status-title": "statusTitle",
+        "thumbnail-url": "thumbnailURL",
+        "notes": "notes",
+        "custom-avatar-url": "customAvatarUrl",
+        "custom-username": "customUsername",
+    }
+
+    if data is None:
+        data = dict()
+
+    notifier = XML.SubElement(
+        xml_parent, "nz.co.jammehcow.jenkinsdiscord.WebhookPublisher "
+    )
+    notifier.set("plugin", "discord-notifier@1.4.14")
+
+    for (opt, attr) in text_options.items():
+        (XML.SubElement(notifier, attr).text) = data.get(opt)
+
+    for (opt, attr) in boolean_options.items():
+        value = "true" if data.get(opt, False) else "false"
+        (XML.SubElement(notifier, attr).text) = value
+
+
 class Publishers(jenkins_jobs.modules.base.Base):
     sequence = 70
 

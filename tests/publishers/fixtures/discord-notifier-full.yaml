@@ -1,0 +1,16 @@
+publishers:
+  - discord-notifier:
+      webhook-url: "https://discord.com/api/webhooks/token"
+      branch-name: "branchName"
+      status-title: "statusTitle"
+      thumbnail-url: "thumbnailURL"
+      notes: "notes"
+      custom-avatar-url: "customAvatarUrl"
+      custom-username: "customUsername"
+      send-on-state-change: true
+      enable-url-linking: true
+      enable-artifact-list: true
+      enable-footer-info: true
+      show-changeset: true
+      send-log-file: true
+      send-start-notification: true
