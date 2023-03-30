@@ -1460,8 +1460,21 @@ def property_strategies(xml_parent, data):
         * **all-branches** (list): A list of property strategy definitions
             for use with all branches.
 
-            * **suppress-scm-triggering** (bool): Suppresses automatic SCM
-                triggering (optional)
+            * **suppress-scm-triggering** (dict):
+                Suppresses automatic SCM triggering (optional).
+
+                * **branch-regex** (str):
+                    Regex matching branch names.
+                    Only these branches will be affected by the selected
+                    suppression strategy. Default ``^$``.
+                * **suppress-strategy** (str):
+                    Select what to suppress for branches matching the regex.
+                    Valid values: ``suppress-nothing`` (default),
+                    ``suppress-branch-indexing``, or ``suppress-webhooks``.
+
+                    .. note::
+                        Using ``suppress-scm-triggering: true`` is deprecated
+                        since Branch API 2.1045.v4ec3ed07b_e4f.
             * **pipeline-branch-durability-override** (str): Set a custom
                 branch speed/durability level. Valid values:
                 performance-optimized, survivable-nonatomic, or
@@ -1509,8 +1522,21 @@ def property_strategies(xml_parent, data):
                 to be applied by default to all branches, unless overridden
                 by an entry in `exceptions`
 
-                * **suppress-scm-triggering** (bool): Suppresses automatic SCM
-                    triggering (optional)
+                * **suppress-scm-triggering** (dict):
+                    Suppresses automatic SCM triggering (optional).
+
+                    * **branch-regex** (str):
+                        Regex matching branch names.
+                        Only these branches will be affected by the selected
+                        suppression strategy. Default ``^$``.
+                    * **suppress-strategy** (str):
+                        Select what to suppress for branches matching the regex.
+                        Valid values: ``suppress-nothing`` (default),
+                        ``suppress-branch-indexing``, or ``suppress-webhooks``.
+
+                        .. note::
+                            Using ``suppress-scm-triggering: true`` is deprecated
+                            since Branch API 2.1045.v4ec3ed07b_e4f.
                 * **pipeline-branch-durability-override** (str): Set a custom
                     branch speed/durability level. Valid values:
                     performance-optimized, survivable-nonatomic, or
@@ -1562,8 +1588,22 @@ def property_strategies(xml_parent, data):
                     * **properties** (list): A list of properties to apply to
                         this branch.
 
-                        * **suppress-scm-triggering** (bool): Suppresses
-                            automatic SCM triggering (optional)
+                        * **suppress-scm-triggering** (dict):
+                            Suppresses automatic SCM triggering (optional).
+
+                            * **branch-regex** (str):
+                                Regex matching branch names.
+                                Only these branches will be affected by the selected
+                                suppression strategy. Default ``^$``.
+                            * **suppress-strategy** (str):
+                                Select what to suppress for branches matching the regex.
+                                Valid values: ``suppress-nothing`` (default),
+                                ``suppress-branch-indexing``, or ``suppress-webhooks``.
+
+                                .. note::
+                                    Using ``suppress-scm-triggering: true`` is deprecated
+                                    since Branch API 2.1045.v4ec3ed07b_e4f.
+
                         * **pipeline-branch-durability-override** (str): Set a
                             custom branch speed/durability level. Valid values:
                             performance-optimized, survivable-nonatomic, or
@@ -1733,13 +1773,48 @@ def apply_property_strategies(props_elem, props_list):
         ]
     )
 
+    # valid options for suppress SCM trigger property
+    # strategy name says what's blocked
+    sst_map = collections.OrderedDict(
+        [
+            ("suppress-nothing", "NONE"),
+            ("suppress-webhooks", "EVENTS"),
+            ("suppress-branch-indexing", "INDEXING"),
+        ]
+    )
+
     for dbs_list in props_list:
 
-        if dbs_list.get("suppress-scm-triggering", False):
-            XML.SubElement(
+        sst_val = dbs_list.get("suppress-scm-triggering", False)
+        if sst_val:
+            sst_elem = XML.SubElement(
                 props_elem,
                 "".join([basic_property_strategies, ".NoTriggerBranchProperty"]),
             )
+
+            if isinstance(sst_val, dict):
+                if "branch-regex" not in sst_val:
+                    raise MissingAttributeError("suppress-scm-triggering[branch-regex]")
+                if "suppression-strategy" not in sst_val:
+                    raise MissingAttributeError(
+                        "suppress-scm-triggering[suppression-strategy]"
+                    )
+
+                sst_ss_val = sst_val["suppression-strategy"]
+                if not sst_map.get(sst_ss_val):
+                    raise InvalidAttributeError(
+                        "suppression-strategy", sst_ss_val, sst_map.keys()
+                    )
+                XML.SubElement(sst_elem, "triggeredBranchesRegex").text = sst_val[
+                    "branch-regex"
+                ]
+                XML.SubElement(sst_elem, "strategy").text = sst_map[sst_ss_val]
+
+            elif isinstance(sst_val, bool):
+                # no sub-elements in this case
+                pass
+            else:
+                raise InvalidAttributeError("suppress-scm-triggering", sst_val)
 
         pbdo_val = dbs_list.get("pipeline-branch-durability-override", None)
         if pbdo_val:

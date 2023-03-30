@@ -45,7 +45,9 @@ scm:
             verbose-logs: true
         property-strategies:
             all-branches:
-                - suppress-scm-triggering: true
+                - suppress-scm-triggering:
+                    suppression-strategy: suppress-branch-indexing
+                    branch-regex: ^.*test.*$
                 - pipeline-branch-durability-override: max-survivability
                 - trigger-build-on-pr-comment:
                     comment: "Ci build!"

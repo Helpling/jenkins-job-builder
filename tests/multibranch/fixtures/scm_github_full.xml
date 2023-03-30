@@ -167,7 +167,10 @@
         <strategy class="jenkins.branch.DefaultBranchPropertyStrategy">
           <properties class="java.util.Arrays$ArrayList">
             <a class="jenkins.branch.BranchProperty-array">
-              <jenkins.branch.NoTriggerBranchProperty/>
+              <jenkins.branch.NoTriggerBranchProperty>
+                <triggeredBranchesRegex>^.*test.*$</triggeredBranchesRegex>
+                <strategy>INDEXING</strategy>
+              </jenkins.branch.NoTriggerBranchProperty>
               <org.jenkinsci.plugins.workflow.multibranch.DurabilityHintBranchProperty plugin="workflow-multibranch">
                 <hint>MAX_SURVIVABILITY</hint>
               </org.jenkinsci.plugins.workflow.multibranch.DurabilityHintBranchProperty>
