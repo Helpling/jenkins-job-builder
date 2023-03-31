@@ -1,0 +1,2 @@
+'suppress-build' is an invalid value for attribute name.suppression-strategy
+Valid values include: 'suppress-nothing', 'suppress-webhooks', 'suppress-branch-indexing'
