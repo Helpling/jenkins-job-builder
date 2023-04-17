@@ -277,6 +277,7 @@ class ModuleRegistry(object):
             expander = self._params_expander
         else:
             expander = self._expander
+            component_data = {}  # It may be None.
         expander_params = {**component_data, **(job_data or {})}
         elements = macro.elements
         if isinstance(elements, BaseYamlObject):
