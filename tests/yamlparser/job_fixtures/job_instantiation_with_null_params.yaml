@@ -1,0 +1,10 @@
+- job-template:
+    name: sample-job
+    builders:
+      - shell: echo "hello"
+
+- project:
+    name: sample-project
+    jobs:
+      # Place colon but define no parameters.
+      - sample-job:
