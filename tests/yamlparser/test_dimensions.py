@@ -196,11 +196,19 @@ cases = [
 ]
 
 
+def wrap_with_location(value):
+    if type(value) is dict:
+        return LocDict({key: wrap_with_location(value) for key, value in value.items()})
+    if type(value) is list:
+        return LocList([wrap_with_location(item) for item in value])
+    return value
+
+
 @pytest.mark.parametrize("axes,params,exclude,expected_dimension_params", cases)
 def test_dimensions(axes, params, exclude, expected_dimension_params):
     dimension_params = [
         p
-        for p in enum_dimensions_params(axes, LocDict(params), defaults={})
+        for p in enum_dimensions_params(axes, wrap_with_location(params), defaults={})
         if is_point_included(LocList(exclude), p)
     ]
     assert dimension_params == expected_dimension_params

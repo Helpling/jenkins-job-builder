@@ -1,0 +1,12 @@
+- project:
+    name: pj
+    param:
+      !include: include-param.yaml.inc
+    jobs:
+      - a-job-{param}
+
+- job-template:
+    name: a-job-{param}
+    builders:
+      - shell: |
+          echo "param={param}"

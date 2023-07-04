@@ -106,7 +106,7 @@ deprecated_yaml_tags = [
 
 # Does not expand string formats. Used in jobs and macros without parameters.
 class Expander:
-    def __init__(self, config):
+    def __init__(self, config=None):
         _yaml_object_expanders = {
             cls: partial(call_expand, self) for cls in yaml_classes_list
         }

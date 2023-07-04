@@ -14,6 +14,7 @@ import itertools
 
 from .errors import Context, JenkinsJobsException
 from .loc_loader import LocList, LocDict
+from jenkins_jobs.expander import Expander
 
 
 def _decode_axis_value(axis, value, key_pos, value_pos):
@@ -43,6 +44,7 @@ def _decode_axis_value(axis, value, key_pos, value_pos):
 
 
 def enum_dimensions_params(axes, params, defaults):
+    expander = Expander()
     if not axes:
         # No axes - instantiate one job/view.
         yield {}
@@ -56,7 +58,8 @@ def enum_dimensions_params(axes, params, defaults):
                 value = defaults[axis]
             except KeyError:
                 continue  # May be, value would be received from an another axis values.
-        value = list(_decode_axis_value(axis, value, key_pos, value_pos))
+        expanded_value = expander.expand(value, params)
+        value = list(_decode_axis_value(axis, expanded_value, key_pos, value_pos))
         dim_values.append(value)
     for values in itertools.product(*dim_values):
         yield LocDict.merge(*values)
