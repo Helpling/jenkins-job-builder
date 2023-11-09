@@ -55,7 +55,7 @@ IRC:
 
 More details on how you can contribute is available on our wiki at:
 
-* https://docs.openstack.org/infra/manual/developers.html
+* https://docs.opendev.org/opendev/infra-manual/latest/developers.html
 
 Writing a patch
 ---------------
@@ -112,11 +112,11 @@ Then install the required python packages using pip_::
 
     $ sudo pip install PyYAML python-jenkins
 
-.. _Jenkins: https://jenkins.io/
+.. _Jenkins: https://www.jenkins.io/
 .. _YAML: https://yaml.org
 .. _JSON: http://json.org/
 .. _pep8: https://pypi.org/project/pep8
 .. _pyflakes: https://pypi.org/project/pyflakes
-.. _tox: https://tox.readthedocs.io/en/latest
+.. _tox: https://tox.wiki/en/latest/
 .. _libyaml: https://pyyaml.org/wiki/LibYAML
 .. _pip: https://pypi.org/project/pip

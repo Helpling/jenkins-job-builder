@@ -3324,7 +3324,7 @@ def sonar(registry, xml_parent, data):
     """yaml: sonar
     Sonar plugin support.
     Requires the Jenkins `Sonar Plugin.
-    <https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-jenkins>`_
+    <https://docs.sonarsource.com/sonarqube/latest/analyzing-source-code/scanners/jenkins-extension-sonarqube/>`_
 
     :arg str installation-name: name of the Sonar instance to use (optional)
     :arg str jdk: JDK to use (inherited from the job if omitted). (optional)
