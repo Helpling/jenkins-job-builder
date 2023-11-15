@@ -2784,7 +2784,7 @@ class Triggers(jenkins_jobs.modules.base.Base):
             return
 
         if data.get("project-type", "freestyle") != "pipeline":
-            trig_e = XML.SubElement(xml_parent, "triggers", {"class": "vector"})
+            xml_triggers = XML.SubElement(xml_parent, "triggers", {"class": "vector"})
         else:
             properties = xml_parent.find("properties")
             if properties is None:
@@ -2793,7 +2793,6 @@ class Triggers(jenkins_jobs.modules.base.Base):
                 properties,
                 "org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty",
             )
-            trig_e = XML.SubElement(pipeline_trig_prop, "triggers")
+            xml_triggers = XML.SubElement(pipeline_trig_prop, "triggers")
 
-        for trigger in triggers:
-            self.registry.dispatch("trigger", trig_e, trigger)
+        self.dispatch_component_list("trigger", triggers, xml_triggers)

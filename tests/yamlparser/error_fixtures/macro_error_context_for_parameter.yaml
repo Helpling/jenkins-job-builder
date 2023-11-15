@@ -1,0 +1,19 @@
+# Check proper context is shown for error in parameter macro expansion.
+
+- parameter:
+    name: sample-parameter
+    parameters:
+    - string:
+        name: FOO
+        default: '{missing_parameter}'
+
+- job-template:
+    name: sample-job
+    parameters:
+    - sample-parameter:
+        unused_param: abc
+
+- project:
+    name: sample-project
+    jobs:
+      - sample-job

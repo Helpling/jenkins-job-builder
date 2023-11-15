@@ -1,0 +1,18 @@
+# Check proper context is shown for error in builder macro expansion.
+
+- wrapper:
+    name: sample-wrapper
+    wrappers:
+    - timeout:
+        timeout: '{missing_parameter}'
+
+- job-template:
+    name: sample-job
+    wrappers:
+    - sample-wrapper:
+        unused_param: abc
+
+- project:
+    name: sample-project
+    jobs:
+      - sample-job

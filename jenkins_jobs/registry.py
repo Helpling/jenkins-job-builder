@@ -191,7 +191,13 @@ class ModuleRegistry(object):
         return component_list_type
 
     def dispatch(
-        self, component_type, xml_parent, component, template_data={}, job_data=None
+        self,
+        component_type,
+        xml_parent,
+        component,
+        template_data={},
+        job_data=None,
+        component_pos=None,
     ):
         """This is a method that you can call from your implementation of
         Base.gen_xml or component.  It allows modules to define a type
@@ -243,9 +249,24 @@ class ModuleRegistry(object):
         macro_dict = self.macros.get(component_type, {})
         macro = macro_dict.get(name)
         if macro:
-            self._dispatch_macro(
-                component_data, component_type, eps, job_data, macro, name, xml_parent
-            )
+            try:
+                self._dispatch_macro(
+                    component_data,
+                    component_type,
+                    eps,
+                    job_data,
+                    macro,
+                    name,
+                    xml_parent,
+                )
+            except JenkinsJobsException as x:
+                if component_pos is not None:
+                    raise x.with_context(
+                        f"While expanding {component_type} macro call {name!r}",
+                        pos=component_pos,
+                    )
+                else:
+                    raise
         elif name in eps:
             try:
                 func = eps[name]

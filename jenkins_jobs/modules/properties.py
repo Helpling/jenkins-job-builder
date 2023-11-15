@@ -1513,9 +1513,10 @@ class Properties(jenkins_jobs.modules.base.Base):
     component_list_type = "properties"
 
     def gen_xml(self, xml_parent, data):
-        properties = xml_parent.find("properties")
-        if properties is None:
-            properties = XML.SubElement(xml_parent, "properties")
+        xml_properties = xml_parent.find("properties")
+        if xml_properties is None:
+            xml_properties = XML.SubElement(xml_parent, "properties")
 
-        for prop in data.get("properties", []):
-            self.registry.dispatch("property", properties, prop, job_data=data)
+        self.dispatch_component_list(
+            "property", data.get("properties", []), xml_properties, job_data=data
+        )

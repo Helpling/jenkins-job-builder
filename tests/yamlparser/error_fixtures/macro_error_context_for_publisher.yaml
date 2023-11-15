@@ -1,0 +1,18 @@
+# Check proper context is shown for error in builder macro expansion.
+
+- publisher:
+    name: sample-publisher
+    publishers:
+    - archive:
+        artifacts: '{missing_parameter}'
+
+- job-template:
+    name: sample-job
+    publishers:
+    - sample-publisher:
+        unused_param: abc
+
+- project:
+    name: sample-project
+    jobs:
+      - sample-job

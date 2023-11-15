@@ -1,0 +1,18 @@
+macro_error_context_for_wrapper.yaml:15:3: In project 'sample-project'
+    - project:
+      ^
+macro_error_context_for_wrapper.yaml:18:9: Defined here
+          - sample-job
+            ^
+macro_error_context_for_wrapper.yaml:9:3: In job template 'sample-job'
+    - job-template:
+      ^
+macro_error_context_for_wrapper.yaml:12:7: While expanding wrapper macro call 'sample-wrapper'
+        - sample-wrapper:
+          ^
+macro_error_context_for_wrapper.yaml:3:3: While expanding macro 'sample-wrapper'
+    - wrapper:
+      ^
+macro_error_context_for_wrapper.yaml:7:19: While formatting string '{missing_parameter}': Missing parameter: 'missing_parameter'
+            timeout: '{missing_parameter}'
+                      ^

@@ -3005,7 +3005,6 @@ class Wrappers(jenkins_jobs.modules.base.Base):
             logger.debug("Build wrappers skipped for Pipeline job")
             return
 
-        wrappers = XML.SubElement(xml_parent, "buildWrappers")
+        xml_wrappers = XML.SubElement(xml_parent, "buildWrappers")
 
-        for wrap in data.get("wrappers", []):
-            self.registry.dispatch("wrapper", wrappers, wrap)
+        self.dispatch_component_list("wrapper", data.get("wrappers", []), xml_wrappers)

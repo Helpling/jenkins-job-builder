@@ -1,0 +1,18 @@
+# Check proper context is shown for error in builder macro expansion.
+
+- trigger:
+    name: sample-trigger
+    triggers:
+    - pollscm:
+        cron: '{missing_parameter}'
+
+- job-template:
+    name: sample-job
+    triggers:
+    - sample-trigger:
+        unused_param: abc
+
+- project:
+    name: sample-project
+    jobs:
+      - sample-job

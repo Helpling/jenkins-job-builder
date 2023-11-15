@@ -1,0 +1,18 @@
+macro_error_context_for_publisher.yaml:15:3: In project 'sample-project'
+    - project:
+      ^
+macro_error_context_for_publisher.yaml:18:9: Defined here
+          - sample-job
+            ^
+macro_error_context_for_publisher.yaml:9:3: In job template 'sample-job'
+    - job-template:
+      ^
+macro_error_context_for_publisher.yaml:12:7: While expanding publisher macro call 'sample-publisher'
+        - sample-publisher:
+          ^
+macro_error_context_for_publisher.yaml:3:3: While expanding macro 'sample-publisher'
+    - publisher:
+      ^
+macro_error_context_for_publisher.yaml:7:21: While formatting string '{missing_parameter}': Missing parameter: 'missing_parameter'
+            artifacts: '{missing_parameter}'
+                        ^

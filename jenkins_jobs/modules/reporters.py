@@ -151,7 +151,7 @@ class Reporters(jenkins_jobs.modules.base.Base):
                 "Reporters may only be used for Maven " "modules."
             )
 
-        reporters = XML.SubElement(xml_parent, "reporters")
+        xml_reporters = XML.SubElement(xml_parent, "reporters")
 
-        for action in data.get("reporters", []):
-            self.registry.dispatch("reporter", reporters, action)
+        component_list = data.get("reporters", [])
+        self.dispatch_component_list("reporter", component_list, xml_reporters)

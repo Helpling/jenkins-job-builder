@@ -95,5 +95,6 @@ class Notifications(jenkins_jobs.modules.base.Base):
             )
             endpoints_element = XML.SubElement(notify_element, "endpoints")
 
-            for endpoint in notifications:
-                self.registry.dispatch("notification", endpoints_element, endpoint)
+            self.dispatch_component_list(
+                "notification", notifications, endpoints_element
+            )

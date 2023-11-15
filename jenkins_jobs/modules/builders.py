@@ -2576,9 +2576,8 @@ class Builders(jenkins_jobs.modules.base.Base):
 
         for alias in ["prebuilders", "builders", "postbuilders"]:
             if alias in data:
-                builders = XML.SubElement(xml_parent, alias)
-                for builder in data[alias]:
-                    self.registry.dispatch("builder", builders, builder)
+                xml_builders = XML.SubElement(xml_parent, alias)
+                self.dispatch_component_list("builder", data[alias], xml_builders)
 
         # Make sure freestyle projects always have a <builders> entry
         # or Jenkins v1.472 (at least) will NPE.

@@ -14,6 +14,8 @@
 
 # Base class for a jenkins_jobs module
 
+from jenkins_jobs.loc_loader import LocList
+
 
 class Base(object):
     """
@@ -73,3 +75,21 @@ class Base(object):
         """
 
         pass
+
+    def dispatch_component_list(
+        self, component_type, component_list, xml_parent, job_data=None
+    ):
+        if not component_list:
+            return
+        for idx, component in enumerate(component_list):
+            if isinstance(component_list, LocList):
+                pos = component_list.value_pos[idx]
+            else:
+                pos = None
+            self.registry.dispatch(
+                component_type,
+                xml_parent,
+                component,
+                job_data=job_data,
+                component_pos=pos,
+            )

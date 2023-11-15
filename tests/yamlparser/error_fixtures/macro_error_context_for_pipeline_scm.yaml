@@ -1,0 +1,20 @@
+# Check proper context is shown for error in builder macro expansion.
+
+- scm:
+    name: sample-scm
+    scm:
+    - git:
+        url: '{missing_parameter}'
+
+- job-template:
+    name: sample-job
+    project-type: pipeline
+    pipeline-scm:
+      scm:
+      - sample-scm:
+          unused_param: abc
+
+- project:
+    name: sample-project
+    jobs:
+      - sample-job

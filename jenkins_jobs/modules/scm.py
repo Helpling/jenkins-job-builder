@@ -39,6 +39,7 @@ Example of an empty ``scm``:
 import logging
 import xml.etree.ElementTree as XML
 
+from jenkins_jobs.loc_loader import LocList
 from jenkins_jobs.errors import InvalidAttributeError
 from jenkins_jobs.errors import JenkinsJobsException
 import jenkins_jobs.modules.base
@@ -1769,8 +1770,8 @@ class SCM(jenkins_jobs.modules.base.Base):
             return
 
         scms_parent = XML.Element("scms")
-        for scm in data.get("scm", []):
-            self.registry.dispatch("scm", scms_parent, scm)
+        component_list = data.get("scm", [])
+        self.dispatch_component_list("scm", component_list, scms_parent)
         scms_count = len(scms_parent)
         if scms_count == 0:
             XML.SubElement(xml_parent, "scm", {"class": "hudson.scm.NullSCM"})
@@ -1806,7 +1807,14 @@ class PipelineSCM(jenkins_jobs.modules.base.Base):
             if scms_count == 0:
                 raise JenkinsJobsException("'scm' missing or empty")
             elif scms_count == 1:
-                self.registry.dispatch("scm", definition_parent, scms[0])
+                component = scms[0]
+                if isinstance(scms, LocList):
+                    component_pos = scms.value_pos[0]
+                else:
+                    component_pos = None
+                self.registry.dispatch(
+                    "scm", definition_parent, component, component_pos=component_pos
+                )
                 mapping = [
                     ("script-path", "scriptPath", "Jenkinsfile"),
                     ("lightweight-checkout", "lightweight", None, [True, False]),

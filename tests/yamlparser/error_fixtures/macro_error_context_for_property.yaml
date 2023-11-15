@@ -1,0 +1,18 @@
+# Check proper context is shown for error in builder macro expansion.
+
+- property:
+    name: sample-property
+    properties:
+    - branch-api:
+        number-of-builds: '{missing_parameter}'
+
+- job-template:
+    name: sample-job
+    properties:
+    - sample-property:
+        unused_param: abc
+
+- project:
+    name: sample-project
+    jobs:
+      - sample-job

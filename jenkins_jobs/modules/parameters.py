@@ -34,6 +34,7 @@ Example::
 
 import xml.etree.ElementTree as XML
 
+from jenkins_jobs.loc_loader import LocList
 from jenkins_jobs.errors import JenkinsJobsException
 from jenkins_jobs.errors import MissingAttributeError
 from jenkins_jobs.errors import InvalidAttributeError
@@ -1624,7 +1625,11 @@ class Parameters(jenkins_jobs.modules.base.Base):
             pdefs = pdefp.find("parameterDefinitions")
             if pdefs is None:
                 pdefs = XML.SubElement(pdefp, "parameterDefinitions")
-            for param in parameters:
+            for idx, param in enumerate(parameters):
+                if isinstance(parameters, LocList):
+                    param_pos = parameters.value_pos[idx]
+                else:
+                    param_pos = None
                 if not isinstance(param, dict):
                     # Macro parameter without arguments
                     param = {param: {}}
@@ -1640,4 +1645,6 @@ class Parameters(jenkins_jobs.modules.base.Base):
                             self._extend_uno_choice_param_data(
                                 macro_param, macro_param_type, data
                             )
-                self.registry.dispatch("parameter", pdefs, param)
+                self.registry.dispatch(
+                    "parameter", pdefs, param, component_pos=param_pos
+                )

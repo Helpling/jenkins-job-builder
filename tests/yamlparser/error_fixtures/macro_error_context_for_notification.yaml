@@ -1,0 +1,19 @@
+# Check proper context is shown for error in builder macro expansion.
+
+- notification:
+    name: sample-notification
+    notifications:
+    - http:
+        url: '{missing_parameter}'
+
+- job-template:
+    name: sample-job
+    project-type: maven
+    notifications:
+    - sample-notification:
+        unused_param: abc
+
+- project:
+    name: sample-project
+    jobs:
+      - sample-job

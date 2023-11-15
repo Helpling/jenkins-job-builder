@@ -8400,7 +8400,7 @@ class Publishers(jenkins_jobs.modules.base.Base):
             logger.debug("Publishers skipped for Pipeline job")
             return
 
-        publishers = XML.SubElement(xml_parent, "publishers")
+        xml_publishers = XML.SubElement(xml_parent, "publishers")
 
-        for action in data.get("publishers", []):
-            self.registry.dispatch("publisher", publishers, action)
+        component_list = data.get("publishers", [])
+        self.dispatch_component_list("publisher", component_list, xml_publishers)
