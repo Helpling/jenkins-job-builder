@@ -1,0 +1,9 @@
+nested_brace_in_variable.yaml:10:3: In project 'sample-project'
+    - project:
+      ^
+nested_brace_in_variable.yaml:5:3: In job template 'sample-job'
+    - job-template:
+      ^
+nested_brace_in_variable.yaml:8:15: While formatting string '{ {x} }': unexpected '{' in field name
+        - shell: '{ {x} }'
+                  ^

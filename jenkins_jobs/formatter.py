@@ -77,7 +77,7 @@ class CustomFormatter(Formatter):
 
         try:
             return super().vformat(format_string, args, kwargs)
-        except (JenkinsJobsException, UndefinedError) as x:
+        except (JenkinsJobsException, UndefinedError, ValueError) as x:
             if len(format_string) > 40:
                 short_fmt = format_string[:80] + "..."
             else:
