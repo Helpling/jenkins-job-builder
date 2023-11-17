@@ -1,0 +1,18 @@
+# Variables should be substituted in included raw files
+# when their path themselves contains variables.
+
+- job-template:
+    name: 'sample-job-{version}'
+    builders:
+    - shell:
+        !include-raw: lazy-load-scripts/subst_vars_{version}.sh
+
+- project:
+    name: sample-project
+    branch: master
+    version:
+    - 1.1
+    - 1.2:
+        branch: feature
+    jobs:
+    - 'sample-job-{version}'

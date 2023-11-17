@@ -143,33 +143,20 @@ For all the multi file includes, the files are simply appended using a newline
 character.
 
 
-To allow for job templates to perform substitution on the path names, when a
-filename containing a python format placeholder is encountered, lazy loading
-support is enabled, where instead of returning the contents back during yaml
-parsing, it is delayed until the variable substitution is performed.
+You can also use variables in included file paths.
 
 Example:
 
     .. literalinclude:: /../../tests/yamlparser/job_fixtures/lazy-load-jobs001.yaml
 
+    with variable substitution inside included files:
+
+    .. literalinclude:: /../../tests/yamlparser/job_fixtures/lazy-load-with-variables.yaml
+
     using a list of files:
 
     .. literalinclude::
         /../../tests/yamlparser/job_fixtures/lazy-load-jobs-multi001.yaml
-
-.. note::
-
-    Because lazy-loading involves performing the substitution on the file
-    name, it means that jenkins-job-builder can not call the variable
-    substitution on the contents of the file. This means that the
-    ``!include-raw:`` tag will behave as though ``!include-raw-escape:`` tag
-    was used instead whenever name substitution on the filename is to be
-    performed.
-
-    Given the behaviour described above, when substitution is to be performed
-    on any filename passed via ``!include-raw-escape:`` the tag will be
-    automatically converted to ``!include-raw:`` and no escaping will be
-    performed.
 
 
 The tag ``!include-jinja2:`` will treat the given string or list of strings as
