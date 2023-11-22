@@ -1,0 +1,4 @@
+project-type: maven
+reporters:
+- email:
+    recipients: breakage@example.com

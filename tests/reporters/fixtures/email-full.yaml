@@ -1,0 +1,7 @@
+project-type: maven
+reporters:
+- email:
+    recipients: breakage@example.com
+    notify-every-unstable-build: false
+    send-to-individuals: true
+    notify-for-each-module: false

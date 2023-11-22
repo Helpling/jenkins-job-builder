@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<maven2-moduleset>
+  <reporters>
+    <hudson.maven.reporters.MavenMailer>
+      <recipients>breakage@example.com</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>true</sendToIndividuals>
+      <perModuleEmail>false</perModuleEmail>
+    </hudson.maven.reporters.MavenMailer>
+  </reporters>
+</maven2-moduleset>
