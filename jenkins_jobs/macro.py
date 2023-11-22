@@ -28,6 +28,7 @@ macro_specs = [
     ("scm", "scm"),
     ("pipeline-scm", "pipeline-scm"),
     ("reporter", "reporters"),
+    ("notification", "notifications"),
 ]
 
 
