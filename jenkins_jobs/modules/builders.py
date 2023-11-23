@@ -1840,7 +1840,7 @@ def maven_builder(registry, xml_parent, data):
     Allows your build jobs to deploy artifacts automatically to Artifactory.
 
     Requires the Jenkins `Artifactory Plugin
-    <https://www.jfrog.com/confluence/display/RTF/Jenkins+Artifactory+Plug-in>`_.
+    <https://jfrog.com/help/r/jfrog-integrations-documentation/jenkins-artifactory-plug-in>`_.
 
     :arg str name: Name of maven installation from the configuration (required)
     :arg str pom: Location of pom.xml (default 'pom.xml')
@@ -3146,7 +3146,7 @@ def sonar(registry, xml_parent, data):
     Invoke standalone Sonar analysis.
 
     Requires the Jenkins `Sonar Plugin
-    <https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-jenkins>`_.
+    <https://docs.sonarsource.com/sonarqube/latest/analyzing-source-code/scanners/jenkins-extension-sonarqube/>`_.
 
     :arg str sonar-name: Name of the Sonar installation.
     :arg str sonar-scanner: Name of the Sonar Scanner.

@@ -222,7 +222,7 @@ def git(registry, xml_parent, data):
 
         :browsers supported:
             * **auto** - (default)
-            * **assemblaweb** - https://www.assembla.com/home
+            * **assemblaweb** - https://get.assembla.com/
             * **bitbucketweb** - https://bitbucket.org/
             * **cgit** - https://git.zx2c4.com/cgit/about/
             * **fisheye** - https://www.atlassian.com/software/fisheye
@@ -230,10 +230,10 @@ def git(registry, xml_parent, data):
             * **githubweb** - https://github.com/
             * **gitiles** - https://code.google.com/archive/p/gitiles/
             * **gitlab** - https://about.gitlab.com/
-            * **gitlist** - http://gitlist.org/
+            * **gitlist** - https://gitlist.org/
             * **gitoriousweb** - https://gitorious.org/
             * **gitweb** - https://git-scm.com/docs/gitweb
-            * **kiln** - https://www.fogbugz.com/version-control
+            * **kiln** - https://ignitetech.com/softwarelibrary/fogbugz
             * **microsoft\-tfs\-2013** - |tfs_2013|
             * **phabricator** - https://www.phacility.com/
             * **redmineweb** - https://www.redmine.org/
@@ -345,7 +345,7 @@ def git(registry, xml_parent, data):
     .. literalinclude:: /../../tests/scm/fixtures/git001.yaml
 
     .. |tfs_2013| replace::
-        https://azure.microsoft.com/en-us/services/devops/server
+        https://azure.microsoft.com/en-us/products/devops/server/
 
     """
     logger = logging.getLogger("%s:git" % __name__)
@@ -1372,8 +1372,8 @@ def hg(self, xml_parent, data):
             * **bitbucketweb** - https://bitbucket.org/
             * **fisheye** - https://www.atlassian.com/software/fisheye
             * **googlecode** - https://code.google.com/
-            * **hgweb** - https://www.mercurial-scm.org/repo/hg/help/hgweb
-            * **kilnhg** - https://www.fogbugz.com/version-control
+            * **hgweb** - https://repo.mercurial-scm.org/hg/help/hgweb
+            * **kilnhg** - https://ignitetech.com/softwarelibrary/fogbugz
             * **rhodecode** - https://rhodecode.com/ (versions >= 1.2)
             * **rhodecode-pre-1.2.0** - https://rhodecode.com/ (versions < 1.2)
 
