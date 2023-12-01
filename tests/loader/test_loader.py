@@ -62,7 +62,7 @@ def test_include(scenario, jjb_config, expected_output):
 
     roots = Roots(jjb_config)
     load_files(jjb_config, roots, [scenario.in_path])
-    job_data_list = [j.data for j in roots.generate_jobs()]
+    job_data_list = [dict(sorted(j.data.items())) for j in roots.generate_jobs()]
     pretty_json = json.dumps(job_data_list, indent=4)
     print(pretty_json)
     assert pretty_json == expected_output.strip()

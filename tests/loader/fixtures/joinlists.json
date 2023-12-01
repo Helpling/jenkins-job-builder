@@ -1,6 +1,5 @@
 [
     {
-        "name": "sample-job",
         "builders": [
             {
                 "shell": [
@@ -13,6 +12,7 @@
                 ]
             }
         ],
-        "description": "<!-- Managed by Jenkins Job Builder -->"
+        "description": "<!-- Managed by Jenkins Job Builder -->",
+        "name": "sample-job"
     }
 ]

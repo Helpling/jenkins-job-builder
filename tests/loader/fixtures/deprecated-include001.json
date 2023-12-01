@@ -1,6 +1,5 @@
 [
     {
-        "name": "test-job-1",
         "builders": [
             {
                 "copyartifact": {
@@ -40,6 +39,7 @@
                 }
             }
         ],
-        "description": "<!-- Managed by Jenkins Job Builder -->"
+        "description": "<!-- Managed by Jenkins Job Builder -->",
+        "name": "test-job-1"
     }
 ]
