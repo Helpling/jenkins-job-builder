@@ -14,6 +14,10 @@
       <planRequired>false</planRequired>
       <verbose>false</verbose>
       <showOnlyFailures>true</showOnlyFailures>
+      <stripSingleParents>true</stripSingleParents>
+      <flattenTapResult>true</flattenTapResult>
+      <skipIfBuildNotOk>true</skipIfBuildNotOk>
+      <removeYamlIfCorrupted>true</removeYamlIfCorrupted>
     </org.tap4j.plugin.TapPublisher>
   </publishers>
 </project>

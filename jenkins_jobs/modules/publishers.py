@@ -4282,6 +4282,13 @@ def tap(registry, xml_parent, data):
         (default true)
     :arg bool show-only-failures: show only test failures (>=1.17)
         (default false)
+    :arg bool strip-single-parents: (>=2.0) (default false)
+    :arg bool flatten-tap-result: flattent multiple subtest levels into a
+        single file (>=2.0) (default false)
+    :arg bool skip-if-built-not-ok: skip publishing TAP results when
+        build fails (>= 2.0.1) (default false)
+    :arg bool remove-yaml-if-corrupted: Remove corrupted YAML (>=2.3)
+        (default false)
 
     Full Example:
 
@@ -4310,6 +4317,10 @@ def tap(registry, xml_parent, data):
         ("plan-required", "planRequired", True),
         ("verbose", "verbose", True),
         ("show-only-failures", "showOnlyFailures", False),
+        ("strip-single-parents", "stripSingleParents", False),
+        ("flatten-tap-result", "flattenTapResult", False),
+        ("skip-if-build-not-ok", "skipIfBuildNotOk", False),
+        ("remove-yaml-if-corrupted", "removeYamlIfCorrupted", False),
     ]
     helpers.convert_mapping_to_xml(tap, data, mappings, fail_required=True)
 

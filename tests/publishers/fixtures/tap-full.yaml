@@ -12,3 +12,7 @@ publishers:
       plan-required: false
       verbose: false
       show-only-failures: true
+      strip-single-parents: true
+      flatten-tap-result: true
+      skip-if-build-not-ok: true
+      remove-yaml-if-corrupted: true
