@@ -377,31 +377,6 @@ Then ``<builders />`` section of the generated job show up as::
 As you can see, the specialized macro ``addtwo`` reused the definition from
 the generic macro ``add``.
 
-Macro Notes
-~~~~~~~~~~~
-
-Macros are expanded using Python string substitution rules. This can
-especially cause confusion with shell snippets that use ``{`` and ``}`` as part
-of their syntax. You must escape curly braces you wish to make it through
-to the output, e.g.::
-
-  - builder:
-    name: a_builder
-    builders:
-       - shell: |
-         PARAMETER={parameter}
-         VARIABLE=${{VARIABLE:-bar}}
-         function foo {{
-              echo "my shell function"
-         }}
-
-The same apply for ``job`` and ``job-template``. Thus embedded-shell within
-a ``job`` or ``job-template`` should always use ``{{`` to achieve a literal
-``{``.
-
-You can also use ``!j2:`` tag instead - Jinja2 uses double quotes for variables.
-
-
 .. _folders:
 
 Folders
