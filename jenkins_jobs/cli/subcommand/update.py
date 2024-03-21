@@ -129,27 +129,14 @@ class UpdateSubCommand(base.JobsSubCommand):
             )
             xml_jobs = xml_jobs_filtered
 
-        if options.update == "jobs":
+        if options.update in {"jobs", "all"}:
             jobs, num_updated_jobs = builder.update_jobs(
                 xml_jobs,
                 n_workers=options.n_workers,
                 existing_only=options.existing_only,
             )
             logger.info("Number of jobs updated: %d", num_updated_jobs)
-        elif options.update == "views":
-            views, num_updated_views = builder.update_views(
-                xml_views,
-                n_workers=options.n_workers,
-                existing_only=options.existing_only,
-            )
-            logger.info("Number of views updated: %d", num_updated_views)
-        else:
-            jobs, num_updated_jobs = builder.update_jobs(
-                xml_jobs,
-                n_workers=options.n_workers,
-                existing_only=options.existing_only,
-            )
-            logger.info("Number of jobs updated: %d", num_updated_jobs)
+        if options.update in {"views", "all"}:
             views, num_updated_views = builder.update_views(
                 xml_views,
                 n_workers=options.n_workers,
