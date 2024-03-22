@@ -7,6 +7,7 @@ Release 6.2.0
 Bugs fixed
 ~~~~~~~~~~
 
+* Do not delete obsolete jobs when `--views-only` option specified.
 * Add readthedocs configuration file. RTD now requires it. Fixes documentation build on RTD.
 
 Release 6.1.0

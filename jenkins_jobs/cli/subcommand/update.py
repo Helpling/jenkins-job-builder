@@ -144,7 +144,8 @@ class UpdateSubCommand(base.JobsSubCommand):
             )
             logger.info("Number of views updated: %d", num_updated_views)
 
-        keep_jobs = [job.name for job in xml_jobs]
         if options.delete_old:
-            n = builder.delete_old_managed(keep=keep_jobs)
-            logger.info("Number of jobs deleted: %d", n)
+            if options.update in {"jobs", "all"}:
+                keep_jobs = [job.name for job in xml_jobs]
+                n = builder.delete_old_managed(keep=keep_jobs)
+                logger.info("Number of jobs deleted: %d", n)

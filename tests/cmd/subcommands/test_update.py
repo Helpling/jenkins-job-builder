@@ -138,6 +138,58 @@ def test_update_jobs_and_delete_old(
     assert jenkins_delete_job.call_count == len(calls)
 
 
+def test_update_jobs_and_delete_old_views_only(
+    mocker, fixtures_dir, default_config_file, execute_jenkins_jobs
+):
+    """Test update behaviour with --delete-old option
+    with --views-only option specified.
+    No jobs should be deleted.
+    """
+    mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.job_exists")
+    jenkins_get_all_jobs = mocker.patch(
+        "jenkins_jobs.builder.jenkins.Jenkins.get_all_jobs"
+    )
+    jenkins_reconfig_job = mocker.patch(
+        "jenkins_jobs.builder.jenkins.Jenkins.reconfig_job"
+    )
+    jenkins_delete_job = mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.delete_job")
+
+    mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.view_exists")
+    mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.get_views")
+    jenkins_reconfig_view = mocker.patch(
+        "jenkins_jobs.builder.jenkins.Jenkins.reconfig_view"
+    )
+
+    yaml_jobs = ["job-1", "job-2", "job-3"]
+    extra_managed_jobs = ["old-job-1", "old-job-2"]
+    unmanaged_jobs = ["unmanaged"]
+
+    jenkins_get_all_jobs.return_value = [
+        {"fullname": name} for name in yaml_jobs + extra_managed_jobs + unmanaged_jobs
+    ]
+    mocker.patch(
+        "jenkins_jobs.builder.JenkinsManager.is_managed",
+        side_effect=(lambda name: name not in unmanaged_jobs),
+    )
+
+    path = fixtures_dir / "update-both.yaml"
+    args = [
+        "--conf",
+        default_config_file,
+        "update",
+        "--delete-old",
+        "--views-only",
+        str(path),
+    ]
+
+    execute_jenkins_jobs(args)
+
+    assert jenkins_reconfig_job.call_count == 0
+    assert jenkins_delete_job.call_count == 0
+
+    assert jenkins_reconfig_view.call_count == 3
+
+
 def test_update_views(mocker, fixtures_dir, default_config_file, execute_jenkins_jobs):
     """
     Test update_job is called for project with views
