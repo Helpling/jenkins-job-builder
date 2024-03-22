@@ -1,0 +1,17 @@
+# Input file for test_update with both jobs and views.
+
+- job-template:
+    name: job-{num}
+    description: Job Number {num}
+
+- view-template:
+    name: view-{num}
+    description: View Number {num}
+
+- project:
+    name: sample-project
+    num: [1, 2, 3]
+    jobs:
+    - job-{num}
+    views:
+    - view-{num}

@@ -138,6 +138,112 @@ def test_update_jobs_and_delete_old(
     assert jenkins_delete_job.call_count == len(calls)
 
 
+def test_update_views(mocker, fixtures_dir, default_config_file, execute_jenkins_jobs):
+    """
+    Test update_job is called for project with views
+    """
+    mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.view_exists")
+    mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.get_views")
+    reconfig_view = mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.reconfig_view")
+
+    path = fixtures_dir / "update-views.yaml"
+    args = ["--conf", default_config_file, "update", str(path)]
+
+    execute_jenkins_jobs(args)
+
+    reconfig_view.assert_has_calls(
+        [
+            mock.call(view_name, mock.ANY)
+            for view_name in ["view-1", "view-2", "view-3"]
+        ],
+        any_order=True,
+    )
+    assert reconfig_view.call_count == 3
+
+
+def test_update_jobs_and_views(
+    mocker, fixtures_dir, default_config_file, execute_jenkins_jobs
+):
+    """
+    Test update_job is called for project with both jobs and views
+    """
+    mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.job_exists")
+    mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.get_all_jobs")
+    reconfig_job = mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.reconfig_job")
+
+    mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.view_exists")
+    mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.get_views")
+    reconfig_view = mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.reconfig_view")
+
+    path = fixtures_dir / "update-both.yaml"
+    args = ["--conf", default_config_file, "update", str(path)]
+
+    execute_jenkins_jobs(args)
+
+    reconfig_job.assert_has_calls(
+        [mock.call(job_name, mock.ANY) for job_name in ["job-1", "job-2", "job-3"]],
+        any_order=True,
+    )
+    assert reconfig_job.call_count == 3
+
+    reconfig_view.assert_has_calls(
+        [
+            mock.call(view_name, mock.ANY)
+            for view_name in ["view-1", "view-2", "view-3"]
+        ],
+        any_order=True,
+    )
+    assert reconfig_view.call_count == 3
+
+
+def test_update_jobs_only(
+    mocker, fixtures_dir, default_config_file, execute_jenkins_jobs
+):
+    """
+    Test update_job is called for project with both jobs and views
+    but only jobs update is requested
+    """
+    mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.job_exists")
+    mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.get_all_jobs")
+    reconfig_job = mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.reconfig_job")
+
+    mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.view_exists")
+    mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.get_views")
+    reconfig_view = mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.reconfig_view")
+
+    path = fixtures_dir / "update-both.yaml"
+    args = ["--conf", default_config_file, "update", "--jobs-only", str(path)]
+
+    execute_jenkins_jobs(args)
+
+    assert reconfig_job.call_count == 3
+    assert reconfig_view.call_count == 0
+
+
+def test_update_views_only(
+    mocker, fixtures_dir, default_config_file, execute_jenkins_jobs
+):
+    """
+    Test update_job is called for project with both jobs and views
+    but only views update is requested
+    """
+    mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.job_exists")
+    mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.get_all_jobs")
+    reconfig_job = mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.reconfig_job")
+
+    mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.view_exists")
+    mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.get_views")
+    reconfig_view = mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.reconfig_view")
+
+    path = fixtures_dir / "update-both.yaml"
+    args = ["--conf", default_config_file, "update", "--views-only", str(path)]
+
+    execute_jenkins_jobs(args)
+
+    assert reconfig_job.call_count == 0
+    assert reconfig_view.call_count == 3
+
+
 @pytest.mark.skip(reason="TODO: Develop actual update timeout test approach.")
 def test_update_timeout_not_set():
     """Validate update timeout behavior when timeout not explicitly configured."""

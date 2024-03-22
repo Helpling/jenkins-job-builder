@@ -1,0 +1,11 @@
+# Input file for test_update with only views.
+
+- view-template:
+    name: view-{num}
+    description: View Number {num}
+
+- project:
+    name: sample-project
+    num: [1, 2, 3]
+    views:
+    - view-{num}
