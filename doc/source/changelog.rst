@@ -7,13 +7,13 @@ Release 6.2.0
 Features added
 ~~~~~~~~~~~~~~
 
-* `--delete-old` flag for `update` cli command is now deletes obsolete views also, not only jobs.
-* Add `--force` flag to `delete-all` cli command to allow it's usage in scripts.
+* ``--delete-old`` flag for ``update`` cli command is now deletes obsolete views also, not only jobs.
+* Add ``--force`` flag to ``delete-all`` cli command to allow it's usage in scripts.
 
 Bugs fixed
 ~~~~~~~~~~
 
-* Do not delete obsolete jobs when `--views-only` option specified.
+* Do not delete obsolete jobs when ``--views-only`` option specified.
 * Add readthedocs configuration file. RTD now requires it. Fixes documentation build on RTD.
 
 Release 6.1.0
