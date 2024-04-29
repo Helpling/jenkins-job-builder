@@ -7,6 +7,7 @@ github-org:
         repo-owner: example-owner
         credentials-id: example-credential
         branch-discovery: all
+        repo-name-regex: "example-repo-name|fancy-regex*"
         head-filter-regex: "(.*/master|.*/release/.*)"
         head-pr-filter-behaviors:
             head-pr-destined-regex:

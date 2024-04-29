@@ -41,6 +41,9 @@
         <jenkins.scm.impl.trait.RegexSCMHeadFilterTrait>
           <regex>(.*/master|.*/release/.*)</regex>
         </jenkins.scm.impl.trait.RegexSCMHeadFilterTrait>
+        <jenkins.scm.impl.trait.RegexSCMSourceFilterTrait plugin="scm-api">
+          <regex>example-repo-name|fancy-regex*</regex>
+        </jenkins.scm.impl.trait.RegexSCMSourceFilterTrait>
         <net.gleske.scmfilter.impl.trait.RegexSCMHeadFilterTrait plugin="scm-filter-branch-pr">
           <regex>foo/.*</regex>
           <tagRegex>20\..*</tagRegex>

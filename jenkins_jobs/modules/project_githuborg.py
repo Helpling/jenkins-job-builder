@@ -206,6 +206,9 @@ def github_org(xml_parent, data):
         first be configured in Global Configuration. (default GitHub)
     :arg str branch-discovery: Discovers branches on the repository.
         Valid options: no-pr, only-pr, all, false. (default 'no-pr')
+    :arg str repo-name-regex: Regular expression used to match repository names
+        within the organization. (optional)
+        Requires the :jenkins-plugins:`SCM API plugin <scm-api>`.
     :arg list build-strategies: Provides control over whether to build a branch
         (or branch like things such as change requests and tags) whenever it is
         discovered initially or a change from the previous revision has been
@@ -383,6 +386,14 @@ def github_org(xml_parent, data):
     if data.get("head-filter-regex", None):
         rshf = XML.SubElement(traits, "jenkins.scm.impl.trait.RegexSCMHeadFilterTrait")
         XML.SubElement(rshf, "regex").text = data.get("head-filter-regex")
+
+    if data.get("repo-name-regex", None):
+        rssf = XML.SubElement(
+            traits,
+            "jenkins.scm.impl.trait.RegexSCMSourceFilterTrait",
+            {"plugin": "scm-api"},
+        )
+        XML.SubElement(rssf, "regex").text = data.get("repo-name-regex")
 
     if data.get("head-pr-filter-behaviors", None):
         multibranch.add_filter_branch_pr_behaviors(
