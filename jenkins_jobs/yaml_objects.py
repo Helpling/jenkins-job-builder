@@ -294,10 +294,25 @@ class J2Template(J2BaseYamlObject):
         self._template_text = template_text
         self._template = self._jinja2_env.from_string(template_text)
 
+    def _params_from_referenced_templates(self, template_text):
+        """
+        Find recursively undeclared jinja2 variables from any
+        (nested) included template(s)
+        """
+        required_params = set()
+        ast = self._jinja2_env.parse(template_text)
+        for rt in jinja2.meta.find_referenced_templates(ast):
+            # recursive call to find params also from nested includes
+            template_text = Path(self._find_file(rt, 0)).read_text()
+            required_params.update(
+                self._params_from_referenced_templates(template_text)
+            )
+        required_params.update(jinja2.meta.find_undeclared_variables(ast))
+        return required_params
+
     @cached_property
     def required_params(self):
-        ast = self._jinja2_env.parse(self._template_text)
-        return jinja2.meta.find_undeclared_variables(ast)
+        return self._params_from_referenced_templates(self._template_text)
 
     def _render(self, params):
         return self._render_template(

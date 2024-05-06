@@ -1,0 +1,18 @@
+- defaults:
+    name: global
+    globalvar1: "global-var-1"
+    globalvar2: "global-var-2"
+
+- project:
+    name: "test-project"
+    var1: !j2: |
+      {% include 'jinja-include03.yaml.inc' %}
+    jobs:
+      - "job-{globalvar1}"
+
+- job-template:
+    name: "job-{globalvar1}"
+    description: |
+      {var1}
+      {globalvar1}
+      {globalvar2}
