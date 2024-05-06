@@ -22,7 +22,11 @@
 import re
 
 from sphinx import addnodes
-from sphinx.domains.python import _pseudo_parse_arglist
+
+try:
+    from sphinx.domains.python._annotations import _pseudo_parse_arglist
+except ImportError:
+    from sphinx.domains.python import _pseudo_parse_arglist
 from sphinx.domains.python import PyFunction, PyXRefRole
 from sphinx.ext.autodoc import Documenter
 from sphinx.ext.autodoc import FunctionDocumenter
