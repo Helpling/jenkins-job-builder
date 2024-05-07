@@ -1,6 +1,20 @@
 Changelog
 ==========
 
+Release 6.3.0
+-------------
+
+Features added
+~~~~~~~~~~~~~~
+
+* Add support for filtering repositories in GitHub Organizations.
+
+Bugs fixed
+~~~~~~~~~~
+
+* Recursively find jinja2 vars from templates.
+  (`Story 2011116 <https://storyboard.openstack.org/#!/story/2011116>`_).
+
 Release 6.2.0
 -------------
 
