@@ -194,6 +194,13 @@ class GithubOrganization(jenkins_jobs.modules.base.Base):
         )
         helpers.convert_mapping_to_xml(factory, data, fopts_map, fail_required=False)
 
+        ####################
+        # Build Strategies #
+        ####################
+
+        if data.get("github-org").get("build-strategies", None):
+            multibranch.build_strategies(xml_parent, data.get("github-org"))
+
         return xml_parent
 
 
@@ -402,9 +409,6 @@ def github_org(xml_parent, data):
 
     if data.get("property-strategies", None):
         multibranch.property_strategies(xml_parent, data)
-
-    if data.get("build-strategies", None):
-        multibranch.build_strategies(xml_parent, data)
 
     multibranch.add_notification_context_trait(traits, data)
 
