@@ -248,6 +248,8 @@ def github_org(xml_parent, data):
         (like to disable SCM triggering or to override the pipeline durability)
         (optional)
         Refer to :func:`~property_strategies <project_multibranch.property_strategies>`.
+    :arg bool exclude-archived-repositories: Whether archived repositories are
+        excluded when scanning an organization. (default: false) (optional)
     :arg bool ssh-checkout: Checkout over SSH.
 
         * **credentials** ('str'): Credentials to use for
@@ -451,4 +453,10 @@ def github_org(xml_parent, data):
             traits,
             "".join([disable_github_status_path_dscore, ".DisableStatusUpdateTrait"]),
             {"plugin": "disable-github-multibranch-status"},
+        )
+
+    if data.get("exclude-archived-repositories", False):
+        XML.SubElement(
+            traits,
+            "".join([github_path_dscore, ".ExcludeArchivedRepositoriesTrait"]),
         )

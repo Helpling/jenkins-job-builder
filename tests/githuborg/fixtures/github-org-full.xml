@@ -139,6 +139,7 @@
           </templates>
         </jenkins.plugins.git.traits.RefSpecsSCMSourceTrait>
         <com.adobe.jenkins.disable__github__multibranch__status.DisableStatusUpdateTrait plugin="disable-github-multibranch-status"/>
+        <org.jenkinsci.plugins.github__branch__source.ExcludeArchivedRepositoriesTrait/>
       </traits>
       <strategy class="jenkins.branch.DefaultBranchPropertyStrategy">
         <properties class="java.util.Arrays$ArrayList">
