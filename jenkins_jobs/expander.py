@@ -11,7 +11,7 @@
 # under the License.
 
 from functools import partial
-
+from itertools import filterfalse
 from jinja2 import StrictUndefined
 
 from .errors import Context, JenkinsJobsException
@@ -255,7 +255,7 @@ def expand_parameters(expander, param_dict):
             required_params = list(enum_required_params(format, value_pos))
             deps[name] = (key_pos, value_pos)
             try:
-                params = LocDict()
+                params = LocDict.merge(expanded_params)
                 for n in required_params:
                     v, kp, vp = expand(n)
                     params.set_item(n, v, kp, vp)
@@ -272,6 +272,7 @@ def expand_parameters(expander, param_dict):
         expanded_params.set_item(name, value, key_pos, value_pos)
         return (value, key_pos, value_pos)
 
-    for name in param_dict:
+    expand("name")  # expand 'name' parameter first
+    for name in filterfalse(lambda x: x == "name", param_dict):
         expand(name)
     return expanded_params

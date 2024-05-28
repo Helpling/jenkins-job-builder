@@ -1,0 +1,34 @@
+- defaults:
+    name: def
+    predefined-parameters: &predefined-parameters |
+      uuid=$uuid
+      release=$release
+      release_uuid=$release_uuid
+      branch=$branch
+      tag=$tag
+      distribution=$distribution
+      ppa=$ppa
+    predefined-docker-parameters: &predefined-docker-parameters |
+      docker_file=$docker_file
+      docker_tag=$docker_tag
+      docker_tag_ppa=$docker_tag_ppa
+      docker_push=$docker_push
+
+- _default_project: &default_project
+    name: default_project
+    jobs:
+      - '{name}-gerrit'
+      - '{name}-source-tests': &default_source-tests
+          tb: !include: include03_source-tests_trigger_builds.yaml.inc
+          tpb: !include: include03_source-tests_trigger_parameterized_builds.yaml.inc
+          lastjob: {}
+    labels:
+      - NGCP-project
+
+- job-template: !include: include03_gerrit.yaml.inc
+- job-template: !include: include03_source-tests.yaml.inc
+- job-template: !include: include03_manage-docker.yaml.inc
+
+- project:
+    name: acc-cdi
+    <<: *default_project

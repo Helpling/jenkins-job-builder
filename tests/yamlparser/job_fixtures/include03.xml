@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+  <actions/>
+  <description>Gerrit Jenkins job listening for code review related events for acc-cdi project.
+&lt;!-- ['NGCP-project'] --&gt;
+&lt;!-- Managed by Jenkins Job Builder --&gt;</description>
+  <keepDependencies>false</keepDependencies>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <concurrentBuild>true</concurrentBuild>
+  <canRoam>true</canRoam>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <builders/>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>*_parameters.txt</artifacts>
+      <allowEmptyArchive>true</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <fingerprint>true</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+      <latestOnly>false</latestOnly>
+      <followSymlinks>false</followSymlinks>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup">
+      <deleteDirs>false</deleteDirs>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete/>
+      <disableDeferredWipeout>true</disableDeferredWipeout>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>true</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>true</notFailBuild>
+    </hudson.plugins.ws__cleanup.WsCleanup>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter/>
+      <externalDelete/>
+      <disableDeferredWipeout>false</disableDeferredWipeout>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper/>
+  </buildWrappers>
+</project>
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+  <actions/>
+  <description>Default tests job
+&lt;!-- ['NGCP-project'] --&gt;
+&lt;!-- Managed by Jenkins Job Builder --&gt;</description>
+  <keepDependencies>false</keepDependencies>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <concurrentBuild>true</concurrentBuild>
+  <canRoam>true</canRoam>
+  <properties>
+    <hudson.plugins.copyartifact.CopyArtifactPermissionProperty plugin="copyartifact">
+      <projectNameList>
+        <string>acc-cdi-*</string>
+      </projectNameList>
+    </hudson.plugins.copyartifact.CopyArtifactPermissionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <builders>
+    <hudson.plugins.parameterizedtrigger.TriggerBuilder>
+      <configs>
+        <hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
+          <configs>
+            <hudson.plugins.parameterizedtrigger.CurrentBuildParameters/>
+            <hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+              <properties>docker_file=$docker_file
+docker_tag=$docker_tag
+docker_tag_ppa=$docker_tag_ppa
+docker_push=$docker_push
+</properties>
+            </hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+          </configs>
+          <projects>acc-cdi-manage-docker</projects>
+          <condition>ALWAYS</condition>
+          <triggerWithNoParameters>false</triggerWithNoParameters>
+          <buildAllNodesWithLabel>false</buildAllNodesWithLabel>
+          <block>
+            <buildStepFailureThreshold>
+              <name>FAILURE</name>
+              <ordinal>2</ordinal>
+              <color>RED</color>
+              <completeBuild>true</completeBuild>
+            </buildStepFailureThreshold>
+            <unstableThreshold>
+              <name>UNSTABLE</name>
+              <ordinal>1</ordinal>
+              <color>YELLOW</color>
+              <completeBuild>true</completeBuild>
+            </unstableThreshold>
+            <failureThreshold>
+              <name>FAILURE</name>
+              <ordinal>2</ordinal>
+              <color>RED</color>
+              <completeBuild>true</completeBuild>
+            </failureThreshold>
+          </block>
+        </hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
+      </configs>
+    </hudson.plugins.parameterizedtrigger.TriggerBuilder>
+  </builders>
+  <publishers>
+    <hudson.plugins.parameterizedtrigger.BuildTrigger>
+      <configs>
+        <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+          <configs>
+            <hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+              <properties>uuid=$uuid
+release=$release
+release_uuid=$release_uuid
+branch=$branch
+tag=$tag
+distribution=$distribution
+ppa=$ppa
+</properties>
+            </hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+            <hudson.plugins.parameterizedtrigger.CurrentBuildParameters/>
+          </configs>
+          <projects>acc-cdi-source</projects>
+          <condition>UNSTABLE_OR_BETTER</condition>
+          <triggerFromChildProjects>false</triggerFromChildProjects>
+          <triggerWithNoParameters>false</triggerWithNoParameters>
+        </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+      </configs>
+    </hudson.plugins.parameterizedtrigger.BuildTrigger>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup">
+      <deleteDirs>false</deleteDirs>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete/>
+      <disableDeferredWipeout>true</disableDeferredWipeout>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>true</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>true</notFailBuild>
+    </hudson.plugins.ws__cleanup.WsCleanup>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter/>
+      <externalDelete/>
+      <disableDeferredWipeout>false</disableDeferredWipeout>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper/>
+    <EnvInjectBuildWrapper>
+      <info>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+        <secureGroovyScript>
+          <sandbox>false</sandbox>
+        </secureGroovyScript>
+      </info>
+    </EnvInjectBuildWrapper>
+  </buildWrappers>
+</project>
