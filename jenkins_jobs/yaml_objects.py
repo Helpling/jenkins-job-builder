@@ -170,6 +170,7 @@ Examples:
 """
 
 import abc
+import importlib
 import logging
 import traceback
 import sys
@@ -221,6 +222,7 @@ class BaseYamlObject(metaclass=abc.ABCMeta):
         if loader.source_dir:
             # Loaded from a file, find includes beside it too.
             self._search_path.append(loader.source_dir)
+        self._filter_modules = jjb_config.yamlparser["filter_modules"].copy()
         self._loader = loader
         self._pos = pos
         allow_empty = jjb_config.yamlparser["allow_empty_variables"]
@@ -255,10 +257,15 @@ class BaseYamlObject(metaclass=abc.ABCMeta):
 class J2BaseYamlObject(BaseYamlObject):
     def __init__(self, jjb_config, loader, pos):
         super().__init__(jjb_config, loader, pos)
+        self._filters = {}
+        for module_name in self._filter_modules:
+            module = importlib.import_module(module_name)
+            self._filters.update(module.FILTERS)
         self._jinja2_env = jinja2.Environment(
             loader=jinja2.FileSystemLoader(self._search_path),
             undefined=jinja2.StrictUndefined,
         )
+        self._jinja2_env.filters.update(self._filters)
 
     def _render_template(self, pos, template_text, template, params):
         try:

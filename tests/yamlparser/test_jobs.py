@@ -18,6 +18,7 @@
 import os
 from operator import attrgetter
 from pathlib import Path
+import sys
 
 import pytest
 
@@ -36,6 +37,9 @@ def scenario(request):
 
 
 def test_yaml_snippet(scenario, check_job):
+    old_path = sys.path
+    if str(fixtures_dir) not in sys.path:
+        sys.path.append(str(fixtures_dir))
     # Some tests using config with 'include_path' expect JJB root to be current directory.
     os.chdir(Path(__file__).parent / "../..")
     if scenario.name.startswith("deprecated-"):
@@ -44,3 +48,4 @@ def test_yaml_snippet(scenario, check_job):
         assert "is deprecated" in str(record[0].message)
     else:
         check_job()
+    sys.path = old_path

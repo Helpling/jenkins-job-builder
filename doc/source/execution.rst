@@ -72,6 +72,14 @@ job_builder section
   ``--jobs-only`` or ``--views-only`` CLI options.
   (Valid options: jobs, views, all)
 
+**filter_modules**
+  (Optional) A space-separated set of strings which of names of additional
+  modules to load Jinja2 filters from when templating YAML objects. Note
+  that the modules must be in the Python path. To learn about writing
+  custom Jinja2 filters, please see the `Jinja2 Documentation`__
+
+__ https://jinja.palletsprojects.com/en/latest/api/#writing-filters
+
 jenkins section
 ^^^^^^^^^^^^^^^
 
