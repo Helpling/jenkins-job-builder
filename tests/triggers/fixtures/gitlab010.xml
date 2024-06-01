@@ -19,14 +19,14 @@
       <addNoteOnMergeRequest>true</addNoteOnMergeRequest>
       <addVoteOnMergeRequest>true</addVoteOnMergeRequest>
       <acceptMergeRequestOnSuccess>false</acceptMergeRequestOnSuccess>
-      <addCiMessage>true</addCiMessage>
-      <allowAllBranches>true</allowAllBranches>
+      <addCiMessage>false</addCiMessage>
+      <allowAllBranches>false</allowAllBranches>
       <sourceBranchRegex/>
       <targetBranchRegex/>
       <secretToken/>
-      <labelsThatForcesBuildIfAdded/>
-      <includeBranchesSpec>master, master2, local-test</includeBranchesSpec>
-      <excludeBranchesSpec>broken-test, master-foo</excludeBranchesSpec>
+      <labelsThatForcesBuildIfAdded>ForceBuildLabel</labelsThatForcesBuildIfAdded>
+      <includeBranchesSpec/>
+      <excludeBranchesSpec/>
     </com.dabsquared.gitlabjenkins.GitLabPushTrigger>
   </triggers>
 </project>

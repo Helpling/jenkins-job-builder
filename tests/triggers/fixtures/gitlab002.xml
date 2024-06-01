@@ -24,6 +24,7 @@
       <sourceBranchRegex/>
       <targetBranchRegex/>
       <secretToken/>
+      <labelsThatForcesBuildIfAdded/>
       <includeBranchesSpec>master</includeBranchesSpec>
       <excludeBranchesSpec>feature</excludeBranchesSpec>
     </com.dabsquared.gitlabjenkins.GitLabPushTrigger>

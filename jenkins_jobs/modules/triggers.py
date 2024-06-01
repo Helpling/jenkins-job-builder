@@ -1662,6 +1662,8 @@ def gitlab(registry, xml_parent, data):
     :arg str source-branch-regex: Regular expression to select branches
     :arg str target-branch-regex: Regular expression to select branches
     :arg str secret-token: Secret token for build trigger
+    :arg str force-build-labels: Labels that launch a build if they are added
+        (comma-separated)
     :arg dict merge-request-label-filter-config: If used allow merge requests
         filtering by labels
 
@@ -1765,6 +1767,7 @@ def gitlab(registry, xml_parent, data):
         ("source-branch-regex", "sourceBranchRegex", ""),
         ("target-branch-regex", "targetBranchRegex", ""),
         ("secret-token", "secretToken", ""),
+        ("force-build-labels", "labelsThatForcesBuildIfAdded", ""),
     ]
     helpers.convert_mapping_to_xml(gitlab, data, mapping, fail_required=True)
 

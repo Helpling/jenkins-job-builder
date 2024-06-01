@@ -24,6 +24,7 @@
       <sourceBranchRegex/>
       <targetBranchRegex>(.*debug.*|.*release.*)</targetBranchRegex>
       <secretToken>secret-build-token</secretToken>
+      <labelsThatForcesBuildIfAdded/>
       <includeBranchesSpec>include1, include2</includeBranchesSpec>
       <excludeBranchesSpec>exclude1, exclude2</excludeBranchesSpec>
     </com.dabsquared.gitlabjenkins.GitLabPushTrigger>
