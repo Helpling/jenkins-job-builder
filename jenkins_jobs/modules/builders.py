@@ -4303,8 +4303,8 @@ def nexus_iq_policy_evaluator(registry, xml_parent, data):
     Integrates the Nexus Lifecycle into a Jenkins job.
     This function triggers 'Invokes Nexus Policy Evaluation'.
 
-    Requires the Jenkins :jenkins-plugins:`Nexus Platform Plugin
-    <nexus-jenkins-plugin>`.
+    Requires the Jenkins :jenkins-github:`Nexus Platform Plugin
+    <nexus-platform-plugin>`.
 
     :arg str stage: Controls the stage the policy evaluation will be
         run against on the Nexus IQ Server (required)
@@ -4399,8 +4399,8 @@ def nexus_repo_manager(registry, xml_parent, data):
     Allows for artifacts selected in Jenkins packages to be
     available in Nexus Repository Manager.
 
-    Requires the Jenkins :jenkins-plugins:`Nexus Platform Plugin
-    <nexus-jenkins-plugin>`.
+    Requires the Jenkins :jenkins-github:`Nexus Platform Plugin
+    <nexus-platform-plugin>`.
 
     :arg str instance-id: The ID of the Nexus Instance (required)
     :arg str repo-id: The ID of the Nexus Repository (required)
