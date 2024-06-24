@@ -350,8 +350,17 @@ class JenkinsManager(object):
 
     @concurrent
     def parallel_update_job(self, job):
+        self.fix_disabled(job)
         self.update_job(job.name, job.output().decode("utf-8"))
         return (job.name, job.md5())
+
+    def fix_disabled(self, job):
+        el = job.xml.find("./disabled")
+        if el is not None:
+            return
+        info = self.jenkins.get_job_info(job.name)
+        disabled = info["disabled"]
+        XML.SubElement(job.xml, "disabled").text = str(disabled).lower()
 
     ################
     # View related #
