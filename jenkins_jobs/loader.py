@@ -9,7 +9,7 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
-
+import functools
 import io
 import logging
 import warnings
@@ -58,7 +58,14 @@ class Loader(LocLoader):
     def load_fp(self, fp):
         return self.load(fp)
 
+    # 1024 cache size seems like a reasonable balance between memory requirement and performance gain
+    @functools.lru_cache(maxsize=1024)
     def load_path(self, path):
+        # Caching parsed file outputs is safe even with _retain_anchors set to True because:
+        # PyYAML does not allow updating anchor values, it is considered as anchor duplication
+        # So we can safely cache a parsed YAML for a file containing an alias since the alias can be defined
+        # only once and must be defined before use. The alias value will remain same irrespective of the number
+        # times a file is parsed
         return self.load(path.read_text(), source_path=path, source_dir=path.parent)
 
     def load(self, stream, source_path=None, source_dir=None):
