@@ -175,3 +175,17 @@ def test_update_timeout_set(mocker, fixtures_dir):
 
     jjb_config = jenkins_mock.call_args[0][0]
     assert jjb_config.jenkins["timeout"] == 0.2
+
+
+def test_filter_modules_set(mocker, fixtures_dir):
+    """
+    Check that customs filters modules are set.
+
+    Test that the filter_modules option is a non-empty list.
+    """
+    config_file = fixtures_dir / "cmd-003.conf"
+    args = ["--conf", str(config_file), "test", "foo"]
+    jenkins_jobs = entry.JenkinsJobs(args)
+
+    jjb_config = jenkins_jobs.jjb_config
+    assert jjb_config.yamlparser["filter_modules"] == ["my_filter", "my_other_filter"]

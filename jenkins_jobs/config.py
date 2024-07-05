@@ -40,6 +40,7 @@ exclude=.*
 allow_duplicates=False
 allow_empty_variables=False
 retain_anchors=False
+filter_modules=
 
 # other named sections could be used in addition to the implicit [jenkins]
 # if you have multiple jenkins servers.
@@ -301,6 +302,17 @@ class JJBConfig(object):
         ):
             path = config.get("job_builder", "include_path").split(":")
         self.yamlparser["include_path"] = path
+
+        # Extra modules to load for jinja2 filters
+        filter_modules = []
+        if (
+            config
+            and config.has_section("job_builder")
+            and config.has_option("job_builder", "filter_modules")
+            and config.get("job_builder", "filter_modules")
+        ):
+            filter_modules = config.get("job_builder", "filter_modules").split(" ")
+        self.yamlparser["filter_modules"] = filter_modules
 
         # allow duplicates?
         allow_duplicates = False

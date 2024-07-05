@@ -1,0 +1,11 @@
+- project:
+    name: filter_modules
+    jobs:
+        - 'filter_modules'
+
+- job-template:
+    name: 'filter_modules'
+    builders:
+      - shell:
+          !j2: |
+            {{"hello"|my_filter}}
