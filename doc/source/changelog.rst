@@ -1,6 +1,29 @@
 Changelog
 ==========
 
+Release 6.4.0
+-------------
+
+Features added
+~~~~~~~~~~~~~~
+
+* githuborg: Pull build strategies into parent xml.
+* githuborg: Support ignoring archived repositories in an organization.
+* Add support for clean-first parameter of repo scm.
+* Add labels to lauch build property for gitlab trigger.
+* Cache raw YAML parsing results of files.
+* Add job_builder option to load extra modules for jinja2 filters.
+
+Bugs fixed
+~~~~~~~~~~
+
+* include-raw-verbatim fails on job-template
+  (`Story 2011112 <https://storyboard.openstack.org/#!/story/2011112>`_).
+* Require setuptools for pkg_resources.
+* Fix links to nexus platform plugin.
+* Fix expansion on `{obj:key}` variable on includes.
+* Allow `disabled` to remain the last setting.
+
 Release 6.3.0
 -------------
 
