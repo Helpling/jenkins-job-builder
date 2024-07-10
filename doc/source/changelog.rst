@@ -1,6 +1,16 @@
 Changelog
 ==========
 
+Release 6.4.1
+-------------
+
+Bugs fixed
+~~~~~~~~~~
+
+* Reverted commit: Allow `disabled` to remain the last setting.
+  With it, new jobs without a `disabled` value configured in their source would fail
+  to be created on Jenkins.
+
 Release 6.4.0
 -------------
 
