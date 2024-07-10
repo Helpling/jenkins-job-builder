@@ -29,7 +29,6 @@ def test_update_jobs(mocker, fixtures_dir, default_config_file, execute_jenkins_
     """
     mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.job_exists")
     mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.get_all_jobs")
-    mocker.patch("jenkins_jobs.builder.JenkinsManager.fix_disabled")
     reconfig_job = mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.reconfig_job")
 
     path = fixtures_dir / "cmd-002.yaml"
@@ -54,7 +53,6 @@ def test_update_jobs_enabled_only(
     """
     mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.job_exists")
     mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.get_all_jobs")
-    mocker.patch("jenkins_jobs.builder.JenkinsManager.fix_disabled")
     reconfig_job = mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.reconfig_job")
 
     path = fixtures_dir / "cmd-002.yaml"
@@ -79,7 +77,6 @@ def test_update_jobs_decode_job_output(
     mocker.patch("jenkins_jobs.builder.JenkinsManager.is_job", return_value=True)
     mocker.patch("jenkins_jobs.builder.JenkinsManager.get_jobs")
     mocker.patch("jenkins_jobs.builder.JenkinsManager.get_job_md5")
-    mocker.patch("jenkins_jobs.builder.JenkinsManager.fix_disabled")
     update_job_mock = mocker.patch("jenkins_jobs.builder.JenkinsManager.update_job")
 
     # don't care about the value returned here
@@ -107,7 +104,6 @@ def test_update_jobs_and_delete_old(
       True.
     """
     mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.job_exists")
-    mocker.patch("jenkins_jobs.builder.JenkinsManager.fix_disabled")
     jenkins_get_all_jobs = mocker.patch(
         "jenkins_jobs.builder.jenkins.Jenkins.get_all_jobs"
     )
@@ -245,7 +241,6 @@ def test_update_jobs_and_views(
     """
     mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.job_exists")
     mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.get_all_jobs")
-    mocker.patch("jenkins_jobs.builder.JenkinsManager.fix_disabled")
     reconfig_job = mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.reconfig_job")
 
     mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.view_exists")
@@ -282,7 +277,6 @@ def test_update_jobs_only(
     """
     mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.job_exists")
     mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.get_all_jobs")
-    mocker.patch("jenkins_jobs.builder.JenkinsManager.fix_disabled")
     reconfig_job = mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.reconfig_job")
 
     mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.view_exists")
@@ -371,7 +365,6 @@ def test_update_views_and_delete_old_jobs_only(
     No views should be deleted or updated.
     """
     mocker.patch("jenkins_jobs.builder.jenkins.Jenkins.job_exists")
-    mocker.patch("jenkins_jobs.builder.JenkinsManager.fix_disabled")
     jenkins_get_all_jobs = mocker.patch(
         "jenkins_jobs.builder.jenkins.Jenkins.get_all_jobs"
     )
