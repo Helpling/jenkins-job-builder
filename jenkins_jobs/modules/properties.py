@@ -534,6 +534,12 @@ def authorization(registry, xml_parent, data, job_data):
     .. _authorization:
 
     For *matrix-auth >= 3.0*
+    :arg list <inheritance-strategy>: `<inheritance-strategy>` the name of inheritance strategy
+
+        :<inheritance-strategy> values:
+            * **parent**
+            * **global**
+            * **none**
 
     :arg list prefix:<name>:
             * `prefix`
@@ -572,7 +578,7 @@ def authorization(registry, xml_parent, data, job_data):
 
     Example:
 
-    .. literalinclude:: /../../tests/properties/fixtures/authorization.yaml
+    .. literalinclude:: /../../tests/properties/fixtures/authorization01.yaml
        :language: yaml
     """
 
@@ -610,30 +616,41 @@ def authorization(registry, xml_parent, data, job_data):
         else:
             element_name = "hudson.security.AuthorizationMatrixProperty"
         matrix = XML.SubElement(xml_parent, element_name)
+
+        inheritance_strategy = (
+            "org.jenkinsci.plugins.matrixauth.inheritance.InheritParentStrategy"
+        )
+        if data.get("inheritance-strategy") == "global":
+            inheritance_strategy = (
+                "org.jenkinsci.plugins.matrixauth.inheritance.InheritGlobalStrategy"
+            )
+        elif data.get("inheritance-strategy") == "none":
+            inheritance_strategy = (
+                "org.jenkinsci.plugins.matrixauth.inheritance.NonInheritingStrategy"
+            )
         XML.SubElement(
             matrix,
             "inheritanceStrategy",
-            {
-                "class": "org.jenkinsci.plugins.matrixauth.inheritance.InheritParentStrategy"
-            },
+            {"class": inheritance_strategy},
         )
 
         for (username, perms) in data.items():
-            for perm in perms:
-                pe = XML.SubElement(matrix, "permission")
-                try:
-                    if username.upper().startswith(
-                        "GROUP:"
-                    ) or username.upper().startswith("USER:"):
-                        pe.text = "{0}:{1}:{2}".format(
-                            username.split(":")[0].upper(),
-                            mapping[perm],
-                            username.split(":")[1],
-                        )
-                    else:
-                        pe.text = "{0}:{1}".format(mapping[perm], username)
-                except KeyError:
-                    raise InvalidAttributeError(username, perm, mapping.keys())
+            if username != "inheritance-strategy":
+                for perm in perms:
+                    pe = XML.SubElement(matrix, "permission")
+                    try:
+                        if username.upper().startswith(
+                            "GROUP:"
+                        ) or username.upper().startswith("USER:"):
+                            pe.text = "{0}:{1}:{2}".format(
+                                username.split(":")[0].upper(),
+                                mapping[perm],
+                                username.split(":")[1],
+                            )
+                        else:
+                            pe.text = "{0}:{1}".format(mapping[perm], username)
+                    except KeyError:
+                        raise InvalidAttributeError(username, perm, mapping.keys())
 
 
 def priority_sorter(registry, xml_parent, data):
