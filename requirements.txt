@@ -9,5 +9,5 @@ stevedore>=1.17.1; python_version >= '3.0'  # Apache-2.0
 python-jenkins>=1.8.2
 fasteners
 Jinja2
-setuptools==69.5.1; python_version >= '3.8'
+setuptools==70.0.0; python_version >= '3.8'
 setuptools; python_version < '3.8'
